@@ -11,9 +11,20 @@
 
 #include <iostream>
 #include "Player.h"
+#include "Case.h"
+#include "Const.h"
+#include "Bomb.h"
+#include "Lvl.h"
 
 class GameModel{
-    Player p;
-    
+private:
+    Case matrix;
+    Player m_p;
+    Bomb m_b;
+    Lvl m_n;
+public:
+    GameModel();
+    GameModel(int w, int h, Player p, Bomb m_b, Lvl n);
 };
+
 #endif /* defined(__THE_PURU__GameModel__) */

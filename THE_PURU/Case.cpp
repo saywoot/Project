@@ -11,6 +11,3 @@
 
 using namespace std;
 
-Case::Case(string o){
-    m_obj=o;
-}
