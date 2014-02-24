@@ -1,0 +1,47 @@
+//
+//  Position.cpp
+//  THE_PURU
+//
+//  Created by sayw00t on 24/02/2014.
+//  Copyright (c) 2014 sayw00t. All rights reserved.
+//
+
+#include <ctime>
+#include <iostream>
+
+#include "Position.h"
+#include "Const.h"
+
+Position::Position(){
+    srand((int) time(NULL));
+    m_x=rand()%(WIDTH_GAME);
+    m_y=rand()%(WIDTH_GAME);
+}
+
+Position::Position(int x, int y){
+    m_x=x;
+    m_y=y;
+}
+
+void Position::set_x(int x){
+    m_x=x;
+}
+
+void Position::set_y(int y){
+    m_y=y;
+}
+
+int Position::get_x(int x){
+    return m_x;
+}
+
+int Position::get_y(int y){
+    return m_y;
+}
+
+void Position::set_pos(int x, int y){
+    m_x=x;
+    m_y=y;
+}
+
+
