@@ -18,7 +18,7 @@
 
 class GameModel{
 private:
-    Case matrix;
+    Case **matrix;
     Player m_p;
     Bomb m_b;
     Lvl m_n;
@@ -28,3 +28,4 @@ public:
 };
 
 #endif /* defined(__THE_PURU__GameModel__) */
+

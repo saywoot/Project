@@ -17,6 +17,8 @@ protected:
     std::string m_obj;
 public:
     Case();
+    void add_o(std::string o);
+    void random_add();
 };
 
 #endif /* defined(__THE_PURU__Case__) */

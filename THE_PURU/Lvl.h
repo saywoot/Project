@@ -10,5 +10,18 @@
 #define __THE_PURU__Lvl__
 
 #include <iostream>
+#include "Bomb.h"
+#include "Case.h"
+
+class Lvl {
+private:
+    int m_lvl;
+    int m_nb_bomb;
+    Bomb b;
+    Case *matrix[18][18];
+public:
+    Lvl();
+    void set_lvl(int lvl, Case matrix);
+};
 
 #endif /* defined(__THE_PURU__Lvl__) */

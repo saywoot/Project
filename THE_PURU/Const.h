@@ -6,5 +6,6 @@
 int const WIDTH_GAME=18;
 int const HEIGHT_GAME=18;
 const std::string ELEM[6]={"1", "2", "3", "4", "5", "6"};
+const int NB_ELEM=6;
 
 #endif
