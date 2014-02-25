@@ -28,6 +28,7 @@ private:
 public:
     GameModel();
     ~GameModel();
+    void affiche() const;
     GameModel(int w, int h, Player p, Bomb b, Lvl n);
 };
 

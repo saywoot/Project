@@ -13,13 +13,13 @@
 
 using namespace std;
 
-Player::Player(){
+Player::Player(): Case(){
     m_obj="$$$";
     srand((int) time(NULL));
     m_p.set_pos(rand()%(WIDTH_GAME), rand()%(HEIGHT_GAME));
 }
 
-Player::Player(int x, int y, string o){
+Player::Player(int x, int y, string o): Case(){
     m_obj=o;
     
     while(x>WIDTH_GAME || x<0 || y<0 || y>HEIGHT_GAME){

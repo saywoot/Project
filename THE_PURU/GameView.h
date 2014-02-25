@@ -18,6 +18,8 @@ public:
     GameView();
     ~GameView();
     void setModel(GameModel *model);
+    void affiche() const;
+    
 private:
     GameModel *m_model;
 };

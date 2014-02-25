@@ -13,13 +13,13 @@
 
 using namespace std;
 
-Bomb::Bomb(){
+Bomb::Bomb():Case(){
     srand((int) time(NULL));
     m_obj="@@@";
     m_p.set_pos(rand()%WIDTH_GAME, rand()%HEIGHT_GAME);
 }
 
-Bomb::Bomb(int x, int y, string o){
+Bomb::Bomb(int x, int y, string o):Case(){
     m_obj=o;
     while(x>WIDTH_GAME || x<0 || y<0 || y>HEIGHT_GAME){
         if (x>WIDTH_GAME || x<0) {

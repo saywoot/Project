@@ -13,12 +13,14 @@
 #include <string>
 
 class Case {
+    
 protected:
     std::string m_obj;
     
 public:
     Case();
     void add_o(std::string o);
+    std::string getObj() const;
     std::string toString() const;
     void random_add();
 };

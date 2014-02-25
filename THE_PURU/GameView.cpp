@@ -25,3 +25,7 @@ void GameView::setModel(GameModel *model)
 {
     m_model = model;
 }
+void GameView::affiche() const
+{
+    m_model->affiche();
+}

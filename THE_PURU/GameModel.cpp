@@ -14,7 +14,9 @@ GameModel::GameModel()
      matrice = new Case* [18];
     for (int i=0; i < 18 ; i++)
         matrice[i] = new Case[18];
-    
+}
+void GameModel::affiche() const
+{
     /* Affichage */
     for (int i=0; i < 18 ; i++) {
         for (int j=0; j < 18 ; j++)
