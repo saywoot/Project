@@ -18,7 +18,7 @@ GameModel::GameModel()
     /* Affichage */
     for (int i=0; i < 18 ; i++) {
         for (int j=0; j < 18 ; j++)
-            std::cout << &matrice[i][j] << " ";
+            std::cout << matrice[i][j] << " ";
         std::cout << std::endl;
     }
     

@@ -9,14 +9,16 @@
 #ifndef __THE_PURU__GameView__
 #define __THE_PURU__GameView__
 
-#include <iostream>
+
+class GameModel;
 
 class GameView{
 
 public:
-    
+    GameView();
+    ~GameView();
+    void setModel(GameModel *model);
 private:
-    
+    GameModel *m_model;
 };
-
 #endif /* defined(__THE_PURU__GameView__) */
