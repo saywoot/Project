@@ -22,9 +22,8 @@
 class GameModel{
 private:
     Case **matrice;
-    Player m_p;
-    Bomb m_b;
-    Lvl m_n;
+    Player *m_p;
+    Lvl *m_n;
 public:
     GameModel();
     ~GameModel();

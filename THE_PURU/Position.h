@@ -12,7 +12,7 @@
 #include <iostream>
 
 class Position{
-private:
+protected:
     int m_x;
     int m_y;
     
@@ -21,8 +21,8 @@ public:
     Position (int x, int y);
     void set_x(int x);
     void set_y(int y);
-    int get_x(int x);
-    int get_y(int y);
+    int get_x();
+    int get_y();
     void set_pos(int x, int y);
 };
 #endif /* defined(__THE_PURU__Position__) */

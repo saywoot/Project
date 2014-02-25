@@ -13,10 +13,10 @@
 
 using namespace std;
 
-Bomb::Bomb():Case(){
-    srand((int) time(NULL));
+Bomb::Bomb():Case() // Appel du constructeur de la class Mère 
+{
     m_obj="@@@";
-    m_p.set_pos(rand()%WIDTH_GAME, rand()%HEIGHT_GAME);
+    set_pos(rand()%WIDTH_GAME, rand()%HEIGHT_GAME);
 }
 
 Bomb::Bomb(int x, int y, string o):Case(){
@@ -31,7 +31,7 @@ Bomb::Bomb(int x, int y, string o):Case(){
             cin >> y;
         }
     }
-    m_p.set_pos(x, y);
+    set_pos(x, y);
 }
 
 void Bomb::set_position(int x, int y){
@@ -45,5 +45,5 @@ void Bomb::set_position(int x, int y){
             cin >> y;
         }
     }
-    m_p.set_pos(x, y);
+    set_pos(x, y);
 }

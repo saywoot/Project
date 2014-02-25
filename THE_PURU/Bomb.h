@@ -17,7 +17,7 @@
 
 class Bomb : public Case{
 private:
-    Position m_p;
+   // Position m_p;
 public:
     Bomb();
     Bomb(int x, int y, std::string o);

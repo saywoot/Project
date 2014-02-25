@@ -17,7 +17,6 @@ using namespace std;
 
 Case::Case(){
     m_obj = ELEM[rand()%(NB_ELEM)];
-    cout << m_obj;
 }
 
 void Case::add_o(string o){

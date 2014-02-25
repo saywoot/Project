@@ -15,8 +15,7 @@ using namespace std;
 
 Player::Player(): Case(){
     m_obj="$$$";
-    srand((int) time(NULL));
-    m_p.set_pos(rand()%(WIDTH_GAME), rand()%(HEIGHT_GAME));
+    set_pos(rand()%(WIDTH_GAME), rand()%(HEIGHT_GAME));
 }
 
 Player::Player(int x, int y, string o): Case(){
@@ -32,12 +31,12 @@ Player::Player(int x, int y, string o): Case(){
             cin >> y;
         }
     }
-    m_p.set_pos(x, y);
+    set_pos(x, y);
 }
 
-Position Player::get_position(){
+/*Position Player::get_position(){
     return m_p;
-}
+}*/
 
 void Player::set_position(int x, int y){
     while(x>WIDTH_GAME || x<0 || y<0 || y>HEIGHT_GAME){
@@ -50,7 +49,7 @@ void Player::set_position(int x, int y){
             cin >> y;
         }
     }
-    m_p.set_pos(x, y);
+    set_pos(x, y);
 }
 
 void Player::move_N(){

@@ -13,7 +13,6 @@
 #include "Const.h"
 
 Position::Position(){
-    srand((int) time(NULL));
     m_x=rand()%(WIDTH_GAME);
     m_y=rand()%(WIDTH_GAME);
 }
@@ -31,11 +30,11 @@ void Position::set_y(int y){
     m_y=y;
 }
 
-int Position::get_x(int x){
+int Position::get_x(){
     return m_x;
 }
 
-int Position::get_y(int y){
+int Position::get_y(){
     return m_y;
 }
 
