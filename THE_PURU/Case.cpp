@@ -7,6 +7,7 @@
 //
 
 #include <string>
+#include <sstream>
 #include <ctime>
 #include "Case.h"
 #include "Const.h"
@@ -25,5 +26,18 @@ void Case::add_o(string o){
 void Case::random_add(){
     srand((int) time(NULL));
     m_obj=ELEM[rand()%(NB_ELEM)];
+}
+string Case::toString() const
+{
+    ostringstream out;
+    out<< m_obj;
+    
+    string s = out.str();
+    return s;
+}
+ostream &operator<<(ostream &out, const Case &autre)
+{
+    out << autre.toString();
+    return out;
 }
 

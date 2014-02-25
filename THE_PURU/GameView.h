@@ -11,4 +11,12 @@
 
 #include <iostream>
 
+class GameView{
+
+public:
+    
+private:
+    
+};
+
 #endif /* defined(__THE_PURU__GameView__) */

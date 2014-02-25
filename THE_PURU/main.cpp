@@ -1,18 +1,11 @@
-//
-//  main.cpp
-//  THE_PURU
-//
-//  Created by sayw00t on 24/02/2014.
-//  Copyright (c) 2014 sayw00t. All rights reserved.
-//
-
 #include <iostream>
+#include "Case.h"
 
-int main(int argc, const char * argv[])
+int main()
 {
+   
+    
 
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    
+    return EXIT_SUCCESS;
 }
-

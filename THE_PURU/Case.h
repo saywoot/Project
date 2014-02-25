@@ -15,10 +15,14 @@
 class Case {
 protected:
     std::string m_obj;
+    
 public:
     Case();
     void add_o(std::string o);
+    std::string toString() const;
     void random_add();
 };
+
+std::ostream &operator<<(std::ostream &out, const Case &autre);
 
 #endif /* defined(__THE_PURU__Case__) */
