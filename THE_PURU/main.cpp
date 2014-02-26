@@ -2,12 +2,19 @@
 #include "GameModel.h"
 #include "Const.h"
 
+using namespace std;
+
 int main()
 {
     srand((unsigned) time(NULL));
     GameModel *model = new GameModel();
     GameView *view = new GameView();
     view->setModel(model);
+    view->affiche();
+    view->answer_move(model);
+    cout << "Vous avez choisi le : "<< model->get_answer_move();
+    cout << endl;
+    model->deplacement();
     view->affiche();
     
     delete view;

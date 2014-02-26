@@ -6,7 +6,13 @@
 //  Copyright (c) 2014 sayw00t. All rights reserved.
 //
 
+#include <iostream>
+#include <string>
+#include <sstream>
+
 #include "GameModel.h"
+#include "GameView.h"
+
 
 GameModel::GameModel()
 {
@@ -23,10 +29,8 @@ GameModel::GameModel()
     
     // Mis en place du joueur dans la matrice
     matrice[m_p->get_x()][m_p->get_y()] = *m_p;
-
-    
-    
 }
+
 void GameModel::affiche() const
 {
     /* Affichage */
@@ -47,7 +51,6 @@ void GameModel::affiche() const
     for(int k=0; k<17; k++)
         std::cout << "|---";
     std::cout << "|" <<std::endl ;
-
     
 }
 GameModel::~GameModel()
@@ -70,3 +73,49 @@ GameModel::GameModel(int w, int h, Player p, Bomb b, Lvl n)
 {
     
 }
+
+void GameModel::deplacement(){
+    if(m_answer_move=="N"){
+        m_p->move_N();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else if(m_answer_move=="NE"){
+        m_p->move_NE();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else if(m_answer_move=="E"){
+        m_p->move_E();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else if(m_answer_move=="SE"){
+        m_p->move_SE();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else if(m_answer_move=="S"){
+        m_p->move_S();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else if(m_answer_move=="SO"){
+        m_p->move_SO();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else if(m_answer_move=="O"){
+        m_p->move_O();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else if(m_answer_move=="NO"){
+        m_p->move_NO();
+        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    }
+    else
+        exit(-1);
+}
+
+void GameModel::set_answer_move(std::string a){
+    m_answer_move=a;
+}
+
+std::string GameModel::get_answer_move(){
+    return m_answer_move;
+}
+

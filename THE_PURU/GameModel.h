@@ -10,6 +10,7 @@
 #define __THE_PURU__GameModel__
 
 #include <iostream>
+#include <string>
 #include <map>
 #include "Player.h"
 #include "Case.h"
@@ -24,11 +25,16 @@ private:
     Case **matrice;
     Player *m_p;
     Lvl *m_n;
+    std::string m_answer_move;
 public:
     GameModel();
+    GameModel(int w, int h, Player p, Bomb b, Lvl n);
     ~GameModel();
     void affiche() const;
-    GameModel(int w, int h, Player p, Bomb b, Lvl n);
+    void deplacement();
+    void set_answer_move(std::string a);
+    std::string get_answer_move();
+
 };
 
 #endif /* defined(__THE_PURU__GameModel__) */

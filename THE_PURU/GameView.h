@@ -9,6 +9,7 @@
 #ifndef __THE_PURU__GameView__
 #define __THE_PURU__GameView__
 
+#include <string>
 
 class GameModel;
 
@@ -19,6 +20,7 @@ public:
     ~GameView();
     void setModel(GameModel *model);
     void affiche() const;
+    void answer_move(GameModel *model);
     
 private:
     GameModel *m_model;
