@@ -36,7 +36,7 @@ void GameView::answer_move(GameModel *model) {
     do{
         cout << "\n\nDans quelle direction voulez-vous déplacer le mineur ? (N / NE / E / SE / S / SO / O / NO) : ";
         cin >> answer;
-    }while(!(answer == "N" || answer == "NE" || answer == "E" || answer == "SE" || answer == "S" || answer == "SO" || answer == "O" || answer == "NO"));
+    }while(!model->check_answer(answer));
     model->set_answer_move(answer);
 }
 

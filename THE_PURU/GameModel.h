@@ -34,7 +34,7 @@ public:
     void deplacement();
     void set_answer_move(std::string a);
     std::string get_answer_move();
-
+    bool check_answer(std::string a);
 };
 
 #endif /* defined(__THE_PURU__GameModel__) */

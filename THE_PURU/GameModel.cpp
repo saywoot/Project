@@ -12,6 +12,7 @@
 
 #include "GameModel.h"
 #include "GameView.h"
+#include "Const.h"
 
 
 GameModel::GameModel()
@@ -28,6 +29,8 @@ GameModel::GameModel()
         matrice[rand()%(WIDTH_GAME)][rand()%(HEIGHT_GAME)] = *new Bomb();
     
     // Mis en place du joueur dans la matrice
+    // pour faire le teste des restriction de mouvement :
+    //m_p->set_position(0, 0);
     matrice[m_p->get_x()][m_p->get_y()] = *m_p;
 }
 
@@ -118,4 +121,26 @@ void GameModel::set_answer_move(std::string a){
 std::string GameModel::get_answer_move(){
     return m_answer_move;
 }
+
+bool GameModel::check_answer(std::string a){
+    if(a == "N" || a == "NE" || a == "E" || a == "SE" || a == "S" || a == "SO" || a == "O" || a == "NO"){
+        if ((a == "N" || a == "NE" || a == "NO") && m_p->get_y() == 0){
+            return false;
+        }
+        else if ((a == "S" || a == "SO" || a == "SE") && m_p->get_y() == HEIGHT_GAME-1){
+            return false;
+        }
+        else if ((a == "O" || a == "NO" || a == "SO") && m_p->get_x() == 0){
+            return false;
+        }
+        else if ((a == "E" || a == "NE" || a == "SE") && m_p->get_x() == WIDTH_GAME-1){
+            return false;
+        }
+        else
+            return true;
+    }
+    else
+        return false;
+}
+
 
