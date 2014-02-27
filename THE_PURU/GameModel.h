@@ -17,6 +17,7 @@
 #include "Const.h"
 #include "Bomb.h"
 #include "Lvl.h"
+#include "Croix.h"
 
 
 
@@ -37,6 +38,7 @@ public:
     bool check_answer(std::string a);
     int deplacement();
     void set_last_pos(int x, int y);
+   // bool endGame();
 };
 
 #endif /* defined(__THE_PURU__GameModel__) */

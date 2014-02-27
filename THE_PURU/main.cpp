@@ -10,12 +10,13 @@ int main()
     GameModel *model = new GameModel();
     GameView *view = new GameView();
     view->setModel(model);
+    while(true){
     view->affiche();
     view->answer_move(model);
     cout << "Vous avez choisi le : "<< model->get_answer_move();
     cout << endl;
     model->direction();
-    view->affiche();
+    }
     
     delete view;
     delete model;

@@ -22,6 +22,7 @@ private:
 public:
     Lvl();
     void set_lvl(int lvl, Case matrix);
+    
 };
 
 #endif /* defined(__THE_PURU__Lvl__) */

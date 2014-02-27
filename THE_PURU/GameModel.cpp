@@ -32,6 +32,8 @@ GameModel::GameModel()
     // pour faire le teste des restriction de mouvement :
     //m_p->set_position(0, 17);
     matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+    
+    m_n = new Lvl();
 }
 
 void GameModel::affiche() const
@@ -62,36 +64,35 @@ GameModel::~GameModel()
         delete[] matrice[i];
     delete[] matrice;
     
-    /*for (int i=0; i < 10; i++)
-        delete[] m_b[i];
-    delete[] m_b;*/
-    
     if(m_p != NULL)
         delete m_p;
     
-    /*if(m_b != NULL)
-        delete m_b;*/
+    if(m_n != NULL)
+        delete m_n;
 }
 GameModel::GameModel(int w, int h, Player p, Bomb b, Lvl n){
     
 }
 
 void GameModel::direction(){
-    int nb_cases;
+    int nb_cases; // compteur
     if(m_answer_move=="N"){
-        m_p->move_N();
-        nb_cases=deplacement();
-        if(nb_cases == -1)
+        m_p->move_N(); // Mouvement vers le Nord
+        nb_cases=deplacement(); // récupération de l'objet
+        if(nb_cases == -1) // une bomb, ou le chemin a été croisé donc perdu
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()+1][m_p->get_x()] = *new Croix;
             std::cout <<"valeur : " << deplacement() << std::endl;
-            while(i<nb_cases){
+            while(i<nb_cases){ // tant que le mineur ne s'est pas déplacé du bon nombre de cases on réactualise sa position une case plus loin
+    
                 std::cout << "i : " << i << std::endl;
-                m_p->move_N();
+                m_p->move_N(); // fait avancer de 1 le mineur
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                matrice[m_p->get_y()+1][m_p->get_x()] = *new Croix;
                 ++i;
             }
         }
@@ -105,10 +106,12 @@ void GameModel::direction(){
         else{
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()+1][m_p->get_x()-1] = *new Croix;
             while(i<nb_cases){
                 std::cout << "i : " << i << std::endl;
                 m_p->move_NE();
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                matrice[m_p->get_y()+1][m_p->get_x()-1] = *new Croix;
                 ++i;
             }
         }
@@ -122,10 +125,12 @@ void GameModel::direction(){
         else{
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()][m_p->get_x()-1] = *new Croix;
             while(i<nb_cases){
                 std::cout << "i : " << i << std::endl;
                 m_p->move_E();
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                matrice[m_p->get_y()][m_p->get_x()-1] = *new Croix;
                 ++i;
             }
         }
@@ -139,10 +144,12 @@ void GameModel::direction(){
         else{
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()-1][m_p->get_x()-1] = *new Croix;
             while(i<nb_cases){
                 std::cout << "i : " << i << std::endl;
                 m_p->move_SE();
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                matrice[m_p->get_y()-1][m_p->get_x()-1] = *new Croix;
                 ++i;
             }
         }
@@ -156,10 +163,12 @@ void GameModel::direction(){
         else{
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()-1][m_p->get_x()] = *new Croix;
             while(i<nb_cases){
                 std::cout << "i : " << i << std::endl;
                 m_p->move_S();
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                matrice[m_p->get_y()-1][m_p->get_x()] = *new Croix;
                 ++i;
             }
         }
@@ -172,11 +181,13 @@ void GameModel::direction(){
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
             int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            //matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()-1][m_p->get_x()+1] = *new Croix;
             while(i<nb_cases){
                 std::cout << "i : " << i << std::endl;
                 m_p->move_SO();
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                 matrice[m_p->get_y()-1][m_p->get_x()+1] = *new Croix;
                 ++i;
             }
         }
@@ -190,10 +201,12 @@ void GameModel::direction(){
         else{
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()][m_p->get_x()+1] = *new Croix;
             while(i<nb_cases){
                 std::cout << "i : " << i << std::endl;
                 m_p->move_O();
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                matrice[m_p->get_y()][m_p->get_x()+1] = *new Croix;
                 ++i;
             }
         }
@@ -207,10 +220,12 @@ void GameModel::direction(){
         else{
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+            matrice[m_p->get_y()+1][m_p->get_x()+1] = *new Croix;
             while(i<nb_cases){
                 std::cout << "i : " << i << std::endl;
                 m_p->move_NO();
                 matrice[m_p->get_y()][m_p->get_x()] = *m_p;
+                matrice[m_p->get_y()+1][m_p->get_x()+1] = *new Croix;
                 ++i;
             }
         }
@@ -267,6 +282,31 @@ bool GameModel::check_answer(std::string a){
     else
         return false;
 }
+
+/*bool GameModel::endGame()
+{
+    for(int i=0; i<WIDTH_GAME; i++){
+        for(int j=0; j<HEIGHT_GAME; j++){
+            if(matrice[][])
+        }
+    }
+}
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
