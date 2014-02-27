@@ -30,8 +30,8 @@ GameModel::GameModel()
     
     // Mis en place du joueur dans la matrice
     // pour faire le teste des restriction de mouvement :
-    //m_p->set_position(0, 0);
-    matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+    m_p->set_position(0, 17);
+    matrice[m_p->get_y()][m_p->get_x()] = *m_p;
 }
 
 void GameModel::affiche() const
@@ -80,35 +80,35 @@ GameModel::GameModel(int w, int h, Player p, Bomb b, Lvl n)
 void GameModel::deplacement(){
     if(m_answer_move=="N"){
         m_p->move_N();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else if(m_answer_move=="NE"){
         m_p->move_NE();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else if(m_answer_move=="E"){
         m_p->move_E();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else if(m_answer_move=="SE"){
         m_p->move_SE();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else if(m_answer_move=="S"){
         m_p->move_S();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else if(m_answer_move=="SO"){
         m_p->move_SO();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else if(m_answer_move=="O"){
         m_p->move_O();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else if(m_answer_move=="NO"){
         m_p->move_NO();
-        matrice[m_p->get_x()][m_p->get_y()] = *m_p;
+        matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     }
     else
         exit(-1);
@@ -123,6 +123,8 @@ std::string GameModel::get_answer_move(){
 }
 
 bool GameModel::check_answer(std::string a){
+    std::cout << " x : " << m_p->get_x() << std::endl;
+    std::cout << " y : " << m_p->get_y() << std::endl;
     if(a == "N" || a == "NE" || a == "E" || a == "SE" || a == "S" || a == "SO" || a == "O" || a == "NO"){
         if ((a == "N" || a == "NE" || a == "NO") && m_p->get_y() == 0){
             return false;

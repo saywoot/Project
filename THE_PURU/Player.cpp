@@ -50,15 +50,15 @@ void Player::set_position(int x, int y){
 
 
 void Player::move_N(){
-    this->set_pos(this->get_x()-1, this->get_y());
+    this->set_pos(this->get_x(), this->get_y()-1);
 }
 
 void Player::move_NE(){
-    this->set_pos(this->get_x()-1, this->get_y()+1);
+    this->set_pos(this->get_x()+1, this->get_y()-1);
 }
 
 void Player::move_E(){
-    this->set_pos(this->get_x(), this->get_y()+1);
+    this->set_pos(this->get_x()+1, this->get_y());
 }
 
 void Player::move_SE(){
@@ -66,15 +66,15 @@ void Player::move_SE(){
 }
 
 void Player::move_S(){
-    this->set_pos(this->get_x()+1, this->get_y());
+    this->set_pos(this->get_x(), this->get_y()+1);
 }
 
 void Player::move_SO(){
-    this->set_pos(this->get_x()+1, this->get_y()-1);
+    this->set_pos(this->get_x()-1, this->get_y()+1);
 }
 
 void Player::move_O(){
-    this->set_pos(this->get_x(), this->get_y()-1);
+    this->set_pos(this->get_x()-1, this->get_y());
 }
 
 void Player::move_NO(){
