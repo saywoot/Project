@@ -31,10 +31,12 @@ public:
     GameModel(int w, int h, Player p, Bomb b, Lvl n);
     ~GameModel();
     void affiche() const;
-    void deplacement();
+    void direction();
     void set_answer_move(std::string a);
     std::string get_answer_move();
     bool check_answer(std::string a);
+    int deplacement();
+    void set_last_pos(int x, int y);
 };
 
 #endif /* defined(__THE_PURU__GameModel__) */

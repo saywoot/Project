@@ -14,7 +14,7 @@ int main()
     view->answer_move(model);
     cout << "Vous avez choisi le : "<< model->get_answer_move();
     cout << endl;
-    model->deplacement();
+    model->direction();
     view->affiche();
     
     delete view;
