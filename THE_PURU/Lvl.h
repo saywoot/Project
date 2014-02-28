@@ -21,7 +21,8 @@ private:
     Case *matrix[18][18];
 public:
     Lvl();
-    void set_lvl(int lvl, Case matrix);
+    //void set_lvl(int lvl, Case matrix);
+    int getNb() const;
     
 };
 

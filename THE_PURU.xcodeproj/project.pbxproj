@@ -17,6 +17,7 @@
 		287B6FD118BBA6B700F05779 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 287B6FCF18BBA6B700F05779 /* Position.cpp */; };
 		287B6FD418BBA86D00F05779 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 287B6FD218BBA86D00F05779 /* Player.cpp */; };
 		8FA5F62018BFB11500951084 /* Croix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F61F18BFB11500951084 /* Croix.cpp */; };
+		8FA5F62518BFBE5600951084 /* Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F62418BFBE5600951084 /* Score.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,8 @@
 		287B6FD518BBA8F900F05779 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Const.h; path = THE_PURU/Const.h; sourceTree = "<group>"; };
 		8FA5F61F18BFB11500951084 /* Croix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Croix.cpp; path = THE_PURU/Croix.cpp; sourceTree = "<group>"; };
 		8FA5F62118BFB13600951084 /* Croix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Croix.h; path = THE_PURU/Croix.h; sourceTree = "<group>"; };
+		8FA5F62318BFBE4400951084 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Score.h; path = THE_PURU/Score.h; sourceTree = "<group>"; };
+		8FA5F62418BFBE5600951084 /* Score.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Score.cpp; path = THE_PURU/Score.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,7 @@
 		8F6C796018BD1850003538F4 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				8FA5F62318BFBE4400951084 /* Score.h */,
 				8FA5F62118BFB13600951084 /* Croix.h */,
 				287B6FD518BBA8F900F05779 /* Const.h */,
 				287B6FD318BBA86D00F05779 /* Player.h */,
@@ -111,6 +115,7 @@
 		8F6C796118BD1857003538F4 /* .Cpp */ = {
 			isa = PBXGroup;
 			children = (
+				8FA5F62418BFBE5600951084 /* Score.cpp */,
 				287B6FD218BBA86D00F05779 /* Player.cpp */,
 				287B6FB418BB819800F05779 /* main.cpp */,
 				287B6FBD18BB81B200F05779 /* Case.cpp */,
@@ -183,6 +188,7 @@
 				287B6FCB18BB820F00F05779 /* Bomb.cpp in Sources */,
 				287B6FC818BB81F900F05779 /* GameView.cpp in Sources */,
 				8FA5F62018BFB11500951084 /* Croix.cpp in Sources */,
+				8FA5F62518BFBE5600951084 /* Score.cpp in Sources */,
 				287B6FCE18BB822500F05779 /* Lvl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

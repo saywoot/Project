@@ -22,6 +22,7 @@ public:
     void affiche() const;
     void answer_move(GameModel *model);
     
+    
 private:
     GameModel *m_model;
 };

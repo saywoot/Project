@@ -11,6 +11,7 @@ int main()
     GameView *view = new GameView();
     view->setModel(model);
     while(true){
+    cout << model->toString() << endl;
     view->affiche();
     view->answer_move(model);
     cout << "Vous avez choisi le : "<< model->get_answer_move();

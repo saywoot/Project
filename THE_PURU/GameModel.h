@@ -18,6 +18,7 @@
 #include "Bomb.h"
 #include "Lvl.h"
 #include "Croix.h"
+#include "Score.h"
 
 
 
@@ -26,12 +27,14 @@ private:
     Case **matrice;
     Player *m_p;
     Lvl *m_n;
+    Score *m_s;
     std::string m_answer_move;
 public:
     GameModel();
     GameModel(int w, int h, Player p, Bomb b, Lvl n);
     ~GameModel();
     void affiche() const;
+    std::string toString() const;
     void direction();
     void set_answer_move(std::string a);
     std::string get_answer_move();
@@ -40,6 +43,8 @@ public:
     void set_last_pos(int x, int y);
    // bool endGame();
 };
+
+std::ostream &operator<<(std::ostream &out, const GameModel &autre);
 
 #endif /* defined(__THE_PURU__GameModel__) */
 

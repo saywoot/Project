@@ -18,6 +18,8 @@
 GameModel::GameModel()
 {
     m_p = new Player();
+    m_n = new Lvl();
+    m_s = new Score();
     
     /* Allocation dynamique de la matrice */
      matrice = new Case* [18];
@@ -25,7 +27,7 @@ GameModel::GameModel()
         matrice[i] = new Case[18];
     
     /* Allocation dynamique des 10 bombes */
-    for (int i=0; i < 10 ; i++)
+    for (int i=0; i < m_n->getNb() ; i++)
         matrice[rand()%(WIDTH_GAME)][rand()%(HEIGHT_GAME)] = *new Bomb();
     
     // Mis en place du joueur dans la matrice
@@ -33,7 +35,7 @@ GameModel::GameModel()
     //m_p->set_position(0, 17);
     matrice[m_p->get_y()][m_p->get_x()] = *m_p;
     
-    m_n = new Lvl();
+    
 }
 
 void GameModel::affiche() const
@@ -69,6 +71,9 @@ GameModel::~GameModel()
     
     if(m_n != NULL)
         delete m_n;
+    
+    if(m_s != NULL)
+        delete m_s;
 }
 GameModel::GameModel(int w, int h, Player p, Bomb b, Lvl n){
     
@@ -76,13 +81,16 @@ GameModel::GameModel(int w, int h, Player p, Bomb b, Lvl n){
 
 void GameModel::direction(){
     int nb_cases; // compteur
+    
     if(m_answer_move=="N"){
         m_p->move_N(); // Mouvement vers le Nord
         nb_cases=deplacement(); // récupération de l'objet
+    
         if(nb_cases == -1) // une bomb, ou le chemin a été croisé donc perdu
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()+1][m_p->get_x()] = *new Croix;
@@ -104,6 +112,8 @@ void GameModel::direction(){
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()+1][m_p->get_x()-1] = *new Croix;
@@ -123,6 +133,8 @@ void GameModel::direction(){
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()][m_p->get_x()-1] = *new Croix;
@@ -142,6 +154,8 @@ void GameModel::direction(){
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()-1][m_p->get_x()-1] = *new Croix;
@@ -161,6 +175,8 @@ void GameModel::direction(){
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()-1][m_p->get_x()] = *new Croix;
@@ -180,6 +196,8 @@ void GameModel::direction(){
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+
             int i = 1;
             //matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()-1][m_p->get_x()+1] = *new Croix;
@@ -199,6 +217,8 @@ void GameModel::direction(){
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()][m_p->get_x()+1] = *new Croix;
@@ -218,6 +238,8 @@ void GameModel::direction(){
             std::cout << "ENDGAME" << std::endl;
         //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
         else{
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+
             int i = 1;
             matrice[m_p->get_y()][m_p->get_x()] = *m_p;
             matrice[m_p->get_y()+1][m_p->get_x()+1] = *new Croix;
@@ -282,16 +304,30 @@ bool GameModel::check_answer(std::string a){
     else
         return false;
 }
+// Fonction permettant l'affichage de l'objet
+// retourne un string
+std::string GameModel::toString() const
+{
+    std::ostringstream out;
+    out<< "Le score est de: " << m_s->getDeplacement();
+    
+    std::string s = out.str();
+    return s;
+}
+// Surcharge de l'opérateur <<
+std::ostream &operator<<(std::ostream &out, const GameModel &autre)
+{
+    out << autre.toString();
+    return out;
+}
 
 /*bool GameModel::endGame()
 {
-    for(int i=0; i<WIDTH_GAME; i++){
-        for(int j=0; j<HEIGHT_GAME; j++){
-            if(matrice[][])
-        }
-    }
-}
- */
+    if((matrice[m_p->get_y()][m_p->get_x()].getObj() != "X" &&
+        matrice[m_p->get_y()][m_p->get_x()].getObj() != "@@@" &&
+        matrice[m_p->get_y()][m_p->get_x()].getObj() != m_p->getObj())
+}*/
+ 
 
 
 
