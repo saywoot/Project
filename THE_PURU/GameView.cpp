@@ -12,7 +12,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
 using namespace std;
 
 GameView::GameView(){
@@ -28,7 +27,34 @@ void GameView::setModel(GameModel *model)
 }
 void GameView::affiche() const
 {
-    m_model->affiche();
+    Case ***matrice = m_model->getMatrice();
+
+    /* Affichage */
+    for(int i=0; i<18; i++){
+        cout << ("\t\t\t\t|---");
+        for(int k=0; k<17; k++)
+            cout << "|---";
+        cout <<"|" << endl << "\t\t\t\t";
+        for(int j=0; j<18; j++){
+            if(m_model->getPlayer().get_x() == j && m_model->getPlayer().get_y() == i)
+            {
+                cout << "|$$$";
+            }
+            else if(matrice[i][j]->getObj() == "$$$" || matrice[i][j]->getObj() == "@@@" ||  matrice[i][j]->getObj() == "***")
+                cout << "|" << matrice[i][j]->getObj();
+            else
+                cout << "| " << matrice[i][j]->getObj() <<" ";
+        }
+        cout << "|" <<endl ;
+    }
+    cout << "\t\t\t\t|---";
+    for(int k=0; k<17; k++)
+        cout << "|---";
+    cout << "|" <<endl ;
+    cout << endl;
+
+    cout << m_model->getPlayer().toString() << "\t\t\t\t" <<m_model->getLvl().toString()  << "\n"
+    << m_model->getScore().toString() << "\t\t\t" << m_model->getScore().afficheScoreTotal() << endl;
 }
 
 void GameView::answer_move(GameModel *model) {
@@ -39,4 +65,9 @@ void GameView::answer_move(GameModel *model) {
     }while(!model->check_answer(answer));
     model->set_answer_move(answer);
 }
-
+void GameView::presentation() const
+{
+    cout << "Bievenue dans le jeu du Puru Puru Digger !" << endl;
+    cout << "Voulez-vous jouer ou quitter ? \n" << endl;
+    cout << " Quitter: 1 " << "\t" << "Jouer: 0" << endl;
+}

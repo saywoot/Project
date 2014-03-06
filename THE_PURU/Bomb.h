@@ -21,8 +21,9 @@ private:
 public:
     Bomb();
     Bomb(int x, int y, std::string o);
-    
+
     void set_position(int x, int y);
+    bool operator==(const Bomb& autre);
 };
 
 #endif /* defined(__THE_PURU__Bomb__) */

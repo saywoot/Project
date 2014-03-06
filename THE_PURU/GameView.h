@@ -12,6 +12,7 @@
 #include <string>
 
 class GameModel;
+class Case;
 
 class GameView{
 
@@ -20,6 +21,7 @@ public:
     ~GameView();
     void setModel(GameModel *model);
     void affiche() const;
+    void presentation() const;
     void answer_move(GameModel *model);
     
     

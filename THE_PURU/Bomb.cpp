@@ -9,14 +9,15 @@
 #include "Bomb.h"
 #include "Position.h"
 #include <string>
+#include <cstdlib>
 #include "Const.h"
 
 using namespace std;
 
-Bomb::Bomb():Case() // Appel du constructeur de la class Mère 
+Bomb::Bomb():Case() // Appel du constructeur de la class Mère
 {
     m_obj="@@@";
-    set_pos(rand()%WIDTH_GAME, rand()%HEIGHT_GAME);
+    set_pos(rand()%(WIDTH_GAME), rand()%(HEIGHT_GAME));
 }
 
 Bomb::Bomb(int x, int y, string o):Case(){
@@ -46,4 +47,11 @@ void Bomb::set_position(int x, int y){
         }
     }
     set_pos(x, y);
+}
+bool Bomb::operator==(const Bomb& autre)
+{
+    if(this != &autre)
+        return false;
+    else
+        return(this->get_x() == autre.get_x() && this->get_y() == autre.get_y());
 }

@@ -18,9 +18,11 @@ class Player : public Case{
 public:
     Player();
     Player(int x, int y, std::string o);
-    
+    std::string toString() const;
     Position get_position();
+    void setVie(int nb);
     void set_position(int x, int y);
+    int getVie() const;
     void move_N();
     void move_NE();
     void move_E();
@@ -29,6 +31,9 @@ public:
     void move_SO();
     void move_O();
     void move_NO();
+    
+private:
+    int m_vie;
 };
 
 #endif /* defined(__THE_PURU__Player__) */

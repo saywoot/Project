@@ -17,13 +17,16 @@ class Lvl {
 private:
     int m_lvl;
     int m_nb_bomb;
+    int m_nb_bonus;
     Bomb b;
     Case *matrix[18][18];
 public:
     Lvl();
     //void set_lvl(int lvl, Case matrix);
+    std::string toString() const;
     int getNb() const;
-    
+    int getBonus() const;
+
 };
 
 #endif /* defined(__THE_PURU__Lvl__) */

@@ -9,271 +9,357 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-
+#include <cstdlib>
+#include <vector>
 #include "GameModel.h"
 #include "GameView.h"
 #include "Const.h"
 
+using namespace std;
 
 GameModel::GameModel()
 {
-    m_p = new Player();
-    m_n = new Lvl();
-    m_s = new Score();
-    
-    /* Allocation dynamique de la matrice */
-     matrice = new Case* [18];
-    for (int i=0; i < 18 ; i++)
-        matrice[i] = new Case[18];
-    
-    /* Allocation dynamique des 10 bombes */
-    for (int i=0; i < m_n->getNb() ; i++)
-        matrice[rand()%(WIDTH_GAME)][rand()%(HEIGHT_GAME)] = *new Bomb();
-    
-    // Mis en place du joueur dans la matrice
-    // pour faire le teste des restriction de mouvement :
-    //m_p->set_position(0, 17);
-    matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-    
-    
-}
+    m_p = new Player();                     // Appel du constructeur du player
+    m_n = new Lvl();                        // Appel du constructeur de Level
+    m_s = new Score();                      // Appel du constructeur de Score
 
-void GameModel::affiche() const
-{
-    /* Affichage */
+    /*Allocation dynamique des pointeurs qui vont contenir des cases */
+    matrice = new Case** [18];
+    for (int i=0; i < 18 ; i++)
+        matrice[i] = new Case*[18];
+
+    /* Allocation des cases */
     for(int i=0; i<18; i++){
-        std::cout << "\t\t\t\t|---";
-        for(int k=0; k<17; k++)
-            std::cout << "|---";
-        std::cout <<"|" << std::endl << "\t\t\t\t";
-        for(int j=0; j<18; j++){
-            if(matrice[i][j].getObj() == "$$$" || matrice[i][j].getObj() == "@@@")
-                std::cout << "|" << matrice[i][j];
-            else
-                std::cout << "| " << matrice[i][j] <<" ";
-        }
-        std::cout << "|" <<std::endl ;
+        for(int j=0; j<18; j++)
+            matrice[i][j] = new Case();
     }
-    std::cout << "\t\t\t\t|---";
-    for(int k=0; k<17; k++)
-        std::cout << "|---";
-    std::cout << "|" <<std::endl ;
-    
+
+    /* Allocation dynamique des 10 bombes */
+    for (int i=0; i < m_n->getNb() ; i++){
+        int x = rand()%(WIDTH_GAME);            // Affectation aléatoire d'un entier
+        int y = rand()%(HEIGHT_GAME);           // Affectation aléatoire d'un entier
+        delete matrice[x][y];                   // Désallocation de la case pour mettre la bombe
+        matrice[x][y] = new Bomb();             // Appel du construteur de Bomb pour remplir la case
+    }
+
+    /*  for (int i=0; i < m_n->getBonus() ; i++){
+        int x = rand()%(WIDTH_GAME);            // Affectation aléatoire d'un entier
+        int y = rand()%(HEIGHT_GAME);           // Affectation aléatoire d'un entier
+        delete matrice[x][y];                   // Désallocation de la case pour mettre le bonus
+        matrice[x][y] = new BonusCase();             // Appel du construteur de Bonus pour remplir la case
+    }*/
+
 }
 GameModel::~GameModel()
 {
-    for (int i=0; i < 18; i++)
+    /* Allocation dynamique des cases */
+    for (int i=0; i < 18; i++){
+        for(int j=0; j < 18; j++)
+            delete matrice[i][j];
         delete[] matrice[i];
-    delete[] matrice;
-    
-    if(m_p != NULL)
-        delete m_p;
-    
-    if(m_n != NULL)
-        delete m_n;
-    
+    }
+    delete[] matrice;                           // Désallocation de la matrice
+
+    /* Désallocation du score */
     if(m_s != NULL)
         delete m_s;
-}
-GameModel::GameModel(int w, int h, Player p, Bomb b, Lvl n){
-    
+
 }
 
 void GameModel::direction(){
-    int nb_cases; // compteur
-    
+    int nb_cases;                                                   // Initialisation d'un entier nb_cases
     if(m_answer_move=="N"){
-        m_p->move_N(); // Mouvement vers le Nord
-        nb_cases=deplacement(); // récupération de l'objet
-    
-        if(nb_cases == -1) // une bomb, ou le chemin a été croisé donc perdu
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
-            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
-            int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()+1][m_p->get_x()] = *new Croix;
-            std::cout <<"valeur : " << deplacement() << std::endl;
-            while(i<nb_cases){ // tant que le mineur ne s'est pas déplacé du bon nombre de cases on réactualise sa position une case plus loin
-    
-                std::cout << "i : " << i << std::endl;
-                m_p->move_N(); // fait avancer de 1 le mineur
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                matrice[m_p->get_y()+1][m_p->get_x()] = *new Croix;
-                ++i;
+        m_p->move_N();                                              // Mouvement vers le Nord du joueur
+        nb_cases= deplacement();                                    // On stocke la valeur de la case suivante
+
+        if((m_p->get_y() +1 - nb_cases >= 0) && nb_cases != -1)     // Si la position du joueur + la valeur de nb_case est valide et ne dépasse pas la taille de la matrice
+        {
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);    // Incrémentation du nombre de déplacement
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);      // Incrémentation du score total
+
+            int i = 1;                                              // Initialisation de i à 1
+
+            while(i < nb_cases && deplacement() != -1){             // Tant que le joueur n'a pas atteint la case et que la case suivante est un chiffre
+                delete matrice[m_p->get_y()][m_p->get_x()];         // On libére la case du joueur
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();  // Appel du constructeur de la croix pour la mettre dans la case précédente du joueur
+                m_p->move_N();                                      // Puis on fait monter le joueur à nouveau
+                i++;                                                // On incrémente i
             }
+            if(deplacement() != -1){                                // Si le joueur a atteint le nb_case alors on supprime et on met une croix
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);                                   // Sinon c'est qu'il a rencontré une bombe ou sa "queue" on regénére la matrice
+            }
+
+        }
+        else{
+            std::cout << "Fin de jeu " << std::endl;                // Affiche Fin de jeu ( perte de vie )
+            m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+            m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+            setContinuer(false);                                    // On met la valeur à faux pour regénérer
         }
     }
     else if(m_answer_move=="NE"){
         m_p->move_NE();
         nb_cases=deplacement();
-        if(nb_cases == -1)
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
+
+        if((m_p->get_y() +1 - nb_cases >= 0) && ((m_p->get_x() -1 + nb_cases < WIDTH_GAME)))
+        {
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);
 
             int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()+1][m_p->get_x()-1] = *new Croix;
-            while(i<nb_cases){
-                std::cout << "i : " << i << std::endl;
+
+           while(i < nb_cases && deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
                 m_p->move_NE();
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                matrice[m_p->get_y()+1][m_p->get_x()-1] = *new Croix;
-                ++i;
+                i++;
             }
+            if(deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);
+            }
+
         }
+        else{
+            std::cout << "Fin de jeu " << std::endl;
+            m_p->setVie(m_p->getVie() - 1);
+            m_s->setDeplacement(0);
+            setContinuer(false);
+        }
+
     }
     else if(m_answer_move=="E"){
         m_p->move_E();
         nb_cases=deplacement();
-        if(nb_cases == -1)
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
+        if(((m_p->get_x() -1 + nb_cases < WIDTH_GAME)))
+        {
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);
 
             int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()][m_p->get_x()-1] = *new Croix;
-            while(i<nb_cases){
-                std::cout << "i : " << i << std::endl;
+
+             while(i < nb_cases && deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
                 m_p->move_E();
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                matrice[m_p->get_y()][m_p->get_x()-1] = *new Croix;
-                ++i;
+                i++;
             }
+            if(deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);
+            }
+
+        }
+        else{
+            std::cout << "Fin de jeu " << std::endl;
+            m_p->setVie(m_p->getVie() - 1);
+            m_s->setDeplacement(0);
+            setContinuer(false);
         }
     }
     else if(m_answer_move=="SE"){
         m_p->move_SE();
         nb_cases=deplacement();
-        if(nb_cases == -1)
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
+        if((m_p->get_y() -1 + nb_cases < HEIGHT_GAME) && ((m_p->get_x() -1 + nb_cases < WIDTH_GAME)))
+        {
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);
 
             int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()-1][m_p->get_x()-1] = *new Croix;
-            while(i<nb_cases){
-                std::cout << "i : " << i << std::endl;
+                 while(i < nb_cases && deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
                 m_p->move_SE();
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                matrice[m_p->get_y()-1][m_p->get_x()-1] = *new Croix;
-                ++i;
+                i++;
             }
+            if(deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);
+            }
+        }
+        else{
+            std::cout << "Fin de jeu " << std::endl;
+            m_p->setVie(m_p->getVie() - 1);
+            m_s->setDeplacement(0);
+            setContinuer(false);
         }
     }
     else if(m_answer_move=="S"){
         m_p->move_S();
         nb_cases=deplacement();
-        if(nb_cases == -1)
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
+        if(((m_p->get_y() -1 + nb_cases < HEIGHT_GAME)))
+        {
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);
 
             int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()-1][m_p->get_x()] = *new Croix;
-            while(i<nb_cases){
-                std::cout << "i : " << i << std::endl;
+
+            while(i < nb_cases && deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
                 m_p->move_S();
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                matrice[m_p->get_y()-1][m_p->get_x()] = *new Croix;
-                ++i;
+                i++;
             }
+            if(deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);
+            }
+      }
+        else{
+            std::cout << "Fin de jeu " << std::endl;
+            m_p->setVie(m_p->getVie()-1);
+            m_s->setDeplacement(0);
+            setContinuer(false);
         }
     }
     else if(m_answer_move=="SO"){
         m_p->move_SO();
         nb_cases=deplacement();
-        if(nb_cases == -1)
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
-            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+         if((m_p->get_y() -1 + nb_cases < HEIGHT_GAME) && ((m_p->get_x() +1 - nb_cases >= 0)))
+        {
 
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);
             int i = 1;
-            //matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()-1][m_p->get_x()+1] = *new Croix;
-            while(i<nb_cases){
-                std::cout << "i : " << i << std::endl;
+
+            while(i < nb_cases && deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
                 m_p->move_SO();
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                 matrice[m_p->get_y()-1][m_p->get_x()+1] = *new Croix;
-                ++i;
+                i++;
             }
-        }
+            if(deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);
+            }
+
+      }
+        else{
+            std::cout << "Fin de jeu " << std::endl;
+            m_p->setVie(m_p->getVie() - 1);
+            m_s->setDeplacement(0);
+            setContinuer(false);
+    }
+
     }
     else if(m_answer_move=="O"){
         m_p->move_O();
         nb_cases=deplacement();
-        if(nb_cases == -1)
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
+         if((m_p->get_x() +1 - nb_cases >= 0))
+         {
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
-
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);
             int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()][m_p->get_x()+1] = *new Croix;
-            while(i<nb_cases){
-                std::cout << "i : " << i << std::endl;
+
+
+            while(i < nb_cases && deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
                 m_p->move_O();
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                matrice[m_p->get_y()][m_p->get_x()+1] = *new Croix;
-                ++i;
+                i++;
             }
-        }
+            if(deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);
+            }
+      }
+         else{
+             std::cout << "Fin de jeu " << std::endl;
+             m_p->setVie(m_p->getVie() - 1);
+             m_s->setDeplacement(0);
+             setContinuer(false);
+         }
     }
     else if(m_answer_move=="NO"){
         m_p->move_NO();
         nb_cases=deplacement();
-        if(nb_cases == -1)
-            std::cout << "ENDGAME" << std::endl;
-        //provisoire il faut faire une méthode endgame qui renvoit un booléen quand je joueur à perdu
-        else{
+       if((m_p->get_y() +1 - nb_cases >= 0) && ((m_p->get_x() +1 - nb_cases >= 0)))
+        {
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases);
-
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases);
             int i = 1;
-            matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-            matrice[m_p->get_y()+1][m_p->get_x()+1] = *new Croix;
-            while(i<nb_cases){
-                std::cout << "i : " << i << std::endl;
-                m_p->move_NO();
-                matrice[m_p->get_y()][m_p->get_x()] = *m_p;
-                matrice[m_p->get_y()+1][m_p->get_x()+1] = *new Croix;
-                ++i;
+
+
+            while(i < nb_cases && deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+                m_p->move_O();
+                i++;
+            }
+            if(deplacement() != -1){
+                delete matrice[m_p->get_y()][m_p->get_x()];
+                matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+            }
+            else {
+                m_p->setVie(m_p->getVie() - 1);                         // On décremente la vie
+                m_s->setDeplacement(0);                                 // On remet le score déplacement à O
+                setContinuer(false);
             }
         }
+        else{
+            std::cout << "Fin de jeu " << std::endl;
+            m_p->setVie(m_p->getVie() - 1);
+            m_s->setDeplacement(0);
+            setContinuer(false);
+        }
     }
-    else
-        exit(-1);
 }
 
+
+
 int GameModel::deplacement(){
-    if(matrice[m_p->get_y()][m_p->get_x()].getObj() != "X" &&
-       matrice[m_p->get_y()][m_p->get_x()].getObj() != "@@@" &&
-       matrice[m_p->get_y()][m_p->get_x()].getObj() != m_p->getObj()){
-        std::istringstream iss(matrice[m_p->get_y()][m_p->get_x()].getObj());
+    string obj = matrice[m_p->get_y()][m_p->get_x()]->getObj();
+
+    if(obj != "X" && obj != "@@@" && obj != m_p->getObj()){
+        istringstream iss(obj);
         int nombre_cases;
         iss >> nombre_cases;
-        std::cout << "Nombre_case : " << nombre_cases << std::endl;
+        cout << "Nombre_case : " << nombre_cases << endl;
         return nombre_cases;
     }
+   /* else if(obj == "***"){
+        int valeur = ELEM[rand()%(NB_ELEM)] + 4;
+        return valeur;
+    }*/
     else
         return -1;
 }
-
-void GameModel::set_last_pos(int x, int y){
-
-}
-
 
 void GameModel::set_answer_move(std::string a){
     m_answer_move=a;
@@ -306,34 +392,69 @@ bool GameModel::check_answer(std::string a){
 }
 // Fonction permettant l'affichage de l'objet
 // retourne un string
-std::string GameModel::toString() const
+
+
+// Getters //
+const Player& GameModel::getPlayer() const
 {
-    std::ostringstream out;
-    out<< "Le score est de: " << m_s->getDeplacement();
-    
-    std::string s = out.str();
-    return s;
-}
-// Surcharge de l'opérateur <<
-std::ostream &operator<<(std::ostream &out, const GameModel &autre)
-{
-    out << autre.toString();
-    return out;
+    return *m_p;
 }
 
-/*bool GameModel::endGame()
+const Score& GameModel::getScore() const
 {
-    if((matrice[m_p->get_y()][m_p->get_x()].getObj() != "X" &&
-        matrice[m_p->get_y()][m_p->get_x()].getObj() != "@@@" &&
-        matrice[m_p->get_y()][m_p->get_x()].getObj() != m_p->getObj())
-}*/
- 
+    return *m_s;
+}
 
+const Lvl& GameModel::getLvl() const
+{
+    return *m_n;
+}
+Case*** GameModel::getMatrice() const{
 
+    return matrice;
+}
+bool GameModel::getContinuer() const
+{
+    return m_continuer;
+}
+void GameModel::setContinuer(bool value)
+{
+    m_continuer = value;
+}
+void GameModel::setMatrice(Case*** matriceBis)
+{
+    matrice = matriceBis;
+}
 
+void GameModel::genereMatrice(){
 
+    for (int i=0; i < 18; i++){
+        for(int j=0; j < 18; j++)
+            delete matrice[i][j];
+    }
 
+     for(int i=0; i<18; i++){
+        for(int j=0; j<18; j++)
+            matrice[i][j] = new Case();
+    }
 
+    for (int i=0; i < m_n->getNb() ; i++){
+        int x = rand()%(WIDTH_GAME);
+        int y = rand()%(HEIGHT_GAME);
+        delete matrice[x][y];
+        matrice[x][y] = new Bomb();
+        }
+
+   /* for (int i=0; i < m_n->getBonus() ; i++){
+        int x = rand()%(WIDTH_GAME);            // Affectation aléatoire d'un entier
+        int y = rand()%(HEIGHT_GAME);           // Affectation aléatoire d'un entier
+        delete matrice[x][y];                   // Désallocation de la case pour mettre le bonus
+        matrice[x][y] = new BonusCase();             // Appel du construteur de Bonus pour remplir la case
+    }*/
+        m_p->set_position(rand()%WIDTH_GAME,rand()%HEIGHT_GAME);
+
+        setMatrice(matrice);
+}
 
 
 

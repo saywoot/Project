@@ -8,7 +8,7 @@
 
 #include <ctime>
 #include <iostream>
-
+#include <cstdlib>
 #include "Position.h"
 #include "Const.h"
 
@@ -30,11 +30,11 @@ void Position::set_y(int y){
     m_y=y;
 }
 
-int Position::get_x(){
+int Position::get_x() const{
     return m_x;
 }
 
-int Position::get_y(){
+int Position::get_y() const{
     return m_y;
 }
 

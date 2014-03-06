@@ -14,6 +14,7 @@
 #include <map>
 #include "Player.h"
 #include "Case.h"
+#include "BonusCase.h"
 #include "Const.h"
 #include "Bomb.h"
 #include "Lvl.h"
@@ -24,27 +25,31 @@
 
 class GameModel{
 private:
-    Case **matrice;
+    Case*** matrice; // Matrice de pointeurs
     Player *m_p;
     Lvl *m_n;
     Score *m_s;
     std::string m_answer_move;
+    bool m_continuer;
 public:
     GameModel();
-    GameModel(int w, int h, Player p, Bomb b, Lvl n);
     ~GameModel();
-    void affiche() const;
-    std::string toString() const;
     void direction();
     void set_answer_move(std::string a);
     std::string get_answer_move();
+    const Player& getPlayer() const;
+    const Score& getScore() const;
+    const Lvl& getLvl() const;
     bool check_answer(std::string a);
     int deplacement();
-    void set_last_pos(int x, int y);
-   // bool endGame();
+    bool getContinuer() const;
+    void setContinuer(bool value);
+    Case*** getMatrice() const;
+    void setMatrice(Case*** matriceBis);
+    void genereMatrice();
+
 };
 
-std::ostream &operator<<(std::ostream &out, const GameModel &autre);
 
 #endif /* defined(__THE_PURU__GameModel__) */
 
