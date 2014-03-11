@@ -319,7 +319,7 @@ void GameModel::direction(){
             while(i < nb_cases && deplacement() != -1){
                 delete matrice[m_p->get_y()][m_p->get_x()];
                 matrice[m_p->get_y()][m_p->get_x()] = new Croix();
-                m_p->move_ON();
+                m_p->move_NO();
                 i++;
             }
             if(deplacement() != -1){
