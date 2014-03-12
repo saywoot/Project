@@ -80,3 +80,9 @@ void GameView::presentation() const
     cout << "Voulez-vous jouer ou quitter ? \n" << endl;
     cout << " Quitter: 1 " << "\t" << "Jouer: 0" << endl;
 }
+void GameView::rejouer() const
+{
+    cout << "Vous avez perdu ! Vous n'avez plus de vies" << endl;
+    cout << " Voulez rejouer ? " << endl;
+    cout << " Quitter: 1 " << "\t" << "Rejouer: 0" << endl;
+}

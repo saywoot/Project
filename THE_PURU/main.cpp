@@ -11,20 +11,26 @@ int main()
     srand((unsigned) time(NULL));
     GameModel *model = new GameModel();
     GameView *view = new GameView();
-    int reponse;
     view->setModel(model);
-    model->setContinuer(true);
     view->presentation();
+
+    int reponse;
     cin >> reponse;
 
-    while(reponse == 0){
-        view->affiche();
-        view->answer_move(model);
-        model->direction(model->get_answer_move());
-        if(model->getContinuer() == false)
+    while(reponse == 0)
+    {
+        if(model->getEndGame() == true)
         {
-            model->genereMatrice();
-            model->setContinuer(true);
+            view->affiche();
+            view->answer_move(model);
+            model->direction(model->get_answer_move());
+        }
+        else
+        {
+            view->rejouer();
+            cin >> reponse;
+            model->setEndGame(true);
+            model->initLevel();
         }
     }
     delete view;

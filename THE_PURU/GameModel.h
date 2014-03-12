@@ -34,22 +34,29 @@ private:
     bool m_continuer;
     int nb_cases;
     int i;
+    bool fin;
 
 public:
     GameModel();
     ~GameModel();
     void set_answer_move(std::string a);
     std::string get_answer_move();
+
     const Player& getPlayer() const;
     const Score& getScore() const;
     const Lvl& getLvl() const;
-    bool getContinuer() const;
-    void setContinuer(bool value);
+
     void setMatrice(Case*** matriceBis);
     void direction(std::string answer);
     bool check_answer(std::string a);
     int deplacement();
     void move(int x, int y);
+
+    bool endGame();
+    bool getEndGame();
+    void setEndGame(bool choix);
+    void initLevel();
+    void verifLevel();
 
     Case*** getMatrice() const;
     void genereMatrice();

@@ -23,8 +23,8 @@ public:
     void affiche() const;
     void presentation() const;
     void answer_move(GameModel *model);
-    
-    
+    void rejouer() const;
+
 private:
     GameModel *m_model;
 };

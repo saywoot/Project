@@ -22,6 +22,7 @@ GameModel::GameModel()
     m_p = new Player();                     // Appel du constructeur du player
     m_n = new Lvl();                        // Appel du constructeur de Level
     m_s = new Score();                      // Appel du constructeur de Score
+    fin = true;
 
     m_b = new Bomb*[10];
     for(int i=0; i<10; i++)
@@ -120,6 +121,34 @@ bool GameModel::check_answer(std::string a){
         return false;
 }
 
+bool GameModel::endGame()
+{
+    if(m_p->getVie() <= 0){
+        fin = false;
+        return fin;
+    }
+    return fin;
+}
+void GameModel::setEndGame(bool choix)
+{
+    fin = choix;
+}
+bool GameModel::getEndGame()
+{
+    return fin;
+}
+void GameModel::initLevel()
+{
+    m_p->setVie(3);
+    m_s->setScoreTotal(0);
+}
+void GameModel::verifLevel()
+{
+    m_p->setVie(m_p->getVie() - 1); // On décremente la vie
+    m_s->setDeplacement(0); // On remet le score déplacement à O
+    genereMatrice();
+    endGame();
+}
 void GameModel::move(int pos_x, int pos_y)
 {
      delete matrice[m_p->get_y()][m_p->get_x()];
@@ -145,20 +174,13 @@ void GameModel::move(int pos_x, int pos_y)
                 matrice[m_p->get_y()][m_p->get_x()] = new Croix();
             }
             else{
-                m_p->setVie(m_p->getVie() - 1); // On décremente la vie
-                m_s->setDeplacement(0); // On remet le score déplacement à O
-                setContinuer(false); // Sinon c'est qu'il a rencontré une bombe ou sa "queue" on regénére la matrice                            // Sinon c'est qu'il a rencontré une bombe ou sa "queue" on regénére la matrice
+                verifLevel();
             }
         }
         else{
-            m_p->setVie(m_p->getVie() - 1); // On décremente la vie
-            m_s->setDeplacement(0); // On remet le score déplacement à O
-            setContinuer(false); // Sinon c'est qu'il a rencontré une bombe ou sa "queue" on regénére la matrice
+            verifLevel();
         }
 }
-
-
-
 int GameModel::deplacement(){
     string obj;
     if(m_p->get_x() >= 0 && m_p->get_x() < WIDTH_GAME && m_p->get_y() >= 0 && m_p->get_y() < HEIGHT_GAME){
@@ -206,14 +228,6 @@ const Lvl& GameModel::getLvl() const
 Case*** GameModel::getMatrice() const{
 
     return matrice;
-}
-bool GameModel::getContinuer() const
-{
-    return m_continuer;
-}
-void GameModel::setContinuer(bool value)
-{
-    m_continuer = value;
 }
 void GameModel::setMatrice(Case*** matriceBis)
 {
