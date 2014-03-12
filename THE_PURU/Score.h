@@ -16,14 +16,16 @@ public:
     Score();
     void setDeplacement(int deplacement);
     void setScoreTotal(int score);
+    void setCible(int c);
     int getDeplacement() const;
     int getScoreTotal() const;
+    int getCible() const;
     std::string toString() const;
-    std::string afficheScoreTotal() const;
 private:
     int nb_deplacement;
     int nb_score_total;
     int cpt_bonnus;
+    int m_cible;
 };
 
 #endif

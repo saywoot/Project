@@ -53,8 +53,7 @@ void GameView::affiche() const
     cout << "|" <<endl ;
     cout << endl;
 
-    cout << m_model->getPlayer().toString() << "\t\t\t\t" <<m_model->getLvl().toString()  << "\n"
-    << m_model->getScore().toString() << "\t\t\t" << m_model->getScore().afficheScoreTotal() << endl;
+    cout << m_model->getPlayer().toString() << "\t\t\t" << m_model->getLvl().toString() << endl << m_model->getScore().toString() << endl;
 }
 
 void GameView::answer_move(GameModel *model) {
@@ -70,7 +69,8 @@ void GameView::presentation() const
     cout <<"  ___   _     _   ___   _     _       ___   _     _   ___   _     _      ___    _    ____      ____" << endl;
     cout <<" /   \\ | |   | | /   \\ | |   | |     /   \\ | |   | | /   \\ | |   | |    |   \\  | |  / __ \\    / __ \\" << endl;
     cout <<"|  _  \\| |   | ||  _  \\| |   | |    |  _  \\| |   | ||  _  \\| |   | |    | |\\ \\ | | / /  \\_\\  / /  \\_\\" << endl;
-    cout <<"| |_| /| |   | || |_| /| |   | | __ | |_| /| |   | || |_| /| |   | | __ | | | || || |    __ | |    __" << endl;
+    cout <<"| |_| /0
+    | |   | || |_| /| |   | | __ | |_| /| |   | || |_| /| |   | | __ | | | || || |    __ | |    __" << endl;
     cout <<"|  __/ | |   | ||  __/ | |   | ||__||  __/ | |   | ||  __/ | |   | ||__|| | | || || |   | _|| |   | _|" << endl;
     cout <<"| |    | |   | ||   \\  | |   | |    | |    | |   | ||   \\  | |   | |    | | | || || |   | | | |   | |" << endl;
     cout <<"| |    | \\___/ || |\\ \\ | \\___/ |    | |    | \\___/ || |\\ \\ | \\___/ |    | |/ / | | \\ \\__/ |  \\ \\__/ |" << endl;
