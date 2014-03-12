@@ -1,5 +1,6 @@
 #include "Score.h"
 #include "Const.h"
+#include "Lvl.h"
 #include <iostream>
 #include <sstream>
 
@@ -9,8 +10,7 @@ Score::Score()
 {
     nb_deplacement = 0;
     nb_score_total = 0;
-    cpt_bonnus = 0;
-    m_cible = 0;
+    m_cible = 10;
 }
 void Score::setDeplacement(int deplacement)
 {
@@ -39,9 +39,11 @@ int Score::getCible() const
 string Score::toString() const
 {
     std::ostringstream out;
-    out<< "Le score déplacement: " << nb_deplacement << "\t\tLe score cible:" << m_cible << "\nLe score total: " << nb_score_total << "\n";
+    out<< "Le score déplacement: " << nb_deplacement << "\t\tLe score cible: " << m_cible << "\nLe score total: " << nb_score_total << "\n";
     
     std::string s = out.str();
     return s;
 }
+
+
 

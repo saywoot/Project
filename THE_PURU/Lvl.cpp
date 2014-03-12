@@ -13,9 +13,12 @@
 using namespace std;
 
 Lvl::Lvl(){
-    m_lvl=1;
+    m_lvl = 1;
     m_nb_bomb=10;
-    m_nb_bonus = 10;
+    m_nb_bonus = 5;
+    m_bonus_temps = 0;
+    m_bonus_vie = 0;
+    m_score_bonus = 0;
 }
 int Lvl::getNb() const
 {
@@ -25,13 +28,57 @@ int Lvl::getBonus() const
 {
     return m_nb_bonus;
 }
+void Lvl::setLevel(int level)
+{
+    m_lvl = level;
+}
 string Lvl::toString() const
 {
     std::ostringstream out;
-    out<< "Level : " << m_lvl;
+    out<< "Level : " << m_lvl << "\nScore Bonus :" << m_score_bonus << "\t\t\t\tBonus Temps: " << m_bonus_temps << "\nBonus Vie: " << m_bonus_vie;
+    
 
     std::string s = out.str();
     return s;
 
 }
-//void Lvl::set_lvl(int lvl, Case matrix){}
+void Lvl::setBomb(int nb)
+{
+    m_nb_bomb = nb;
+}
+void Lvl::setBonus(int nb)
+{
+    m_nb_bonus = nb;
+}
+int Lvl::getLevel() const
+{
+    return m_lvl;
+}
+
+int Lvl::get_b_temps() const
+{
+    return m_bonus_temps;
+}
+int Lvl::get_b_vie() const
+{
+    return m_bonus_vie;
+}
+int Lvl::get_score_bonus() const
+{
+    return m_score_bonus;
+}
+void Lvl::set_bonusVie(int nb)
+{
+    m_bonus_vie = nb;
+}
+void Lvl::set_bonusTemps(int nb)
+{
+    m_bonus_temps = nb;
+}
+void Lvl::set_score_bonus(int nb)
+{
+    m_score_bonus = nb;
+}
+
+
+

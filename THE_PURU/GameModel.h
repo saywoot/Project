@@ -57,6 +57,10 @@ public:
     void setEndGame(bool choix);
     void initLevel();
     void verifLevel();
+    void changeLevel();
+    void objectifAtteint();
+    
+    void randomBonus();
 
     Case*** getMatrice() const;
     void genereMatrice();

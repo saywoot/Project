@@ -24,8 +24,8 @@ GameModel::GameModel()
     m_s = new Score();                      // Appel du constructeur de Score
     fin = true;
 
-    m_b = new Bomb*[10];
-    for(int i=0; i<10; i++)
+    m_b = new Bomb*[30];
+    for(int i=0; i<m_n->getNb(); i++)
     {
         m_b[i] = new Bomb();
     }
@@ -117,6 +117,11 @@ bool GameModel::check_answer(std::string a){
         else
             return true;
     }
+    else if(a == "1")
+    {
+        fin = false;
+        return true;
+    }
     else
         return false;
 }
@@ -137,13 +142,20 @@ bool GameModel::getEndGame()
 {
     return fin;
 }
+// Fonction pour remettre à zéro si on a perdu les trois vies
 void GameModel::initLevel()
 {
+    m_n->setLevel(1);
+    m_n->set_bonusTemps(0);
+    m_n->set_bonusVie(0);
+    m_n->set_score_bonus(0);
+    m_s->setCible(10);
     m_p->setVie(3);
     m_s->setScoreTotal(0);
 }
 void GameModel::verifLevel()
 {
+    cout << " Vous venez de perdre une vie !" << endl;
     m_p->setVie(m_p->getVie() - 1); // On décremente la vie
     m_s->setDeplacement(0); // On remet le score déplacement à O
     genereMatrice();
@@ -160,6 +172,7 @@ void GameModel::move(int pos_x, int pos_y)
 
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases); // Incrémentation du nombre de déplacement
             m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases); // Incrémentation du score total
+            
             i = 1;                                              // Initialisation de i à 1
 
             while(i < nb_cases && deplacement() != -1)
@@ -172,6 +185,7 @@ void GameModel::move(int pos_x, int pos_y)
             if(deplacement() != -1){                                // Si le joueur a atteint le nb_case alors on supprime et on met une croix
                 delete matrice[m_p->get_y()][m_p->get_x()];
                 matrice[m_p->get_y()][m_p->get_x()] = new Croix();
+                objectifAtteint();
             }
             else{
                 verifLevel();
@@ -180,6 +194,27 @@ void GameModel::move(int pos_x, int pos_y)
         else{
             verifLevel();
         }
+}
+void GameModel::objectifAtteint()
+{
+    if(m_s->getDeplacement() >= m_s->getCible())
+            changeLevel();
+}
+void GameModel::changeLevel()
+{
+    cout << "Vous avez changé de niveau " << endl;
+    m_n->setLevel(m_n->getLevel() + 1); // J'incrémente le level grâce à la surcharge
+    m_s->setCible(m_s->getCible() + 10);
+    m_n->set_bonusVie(0);
+    m_n->set_bonusTemps(0);
+    m_n->set_score_bonus(0);
+    
+    if(m_n->getLevel()%2 == 0){
+       m_n->setBomb(m_n->getNb() +1);
+       m_n->setBonus(m_n->getBonus() +1);
+     }
+    m_s->setDeplacement(0); // On remet le score déplacement à O
+    genereMatrice();
 }
 int GameModel::deplacement(){
     string obj;
@@ -198,16 +233,32 @@ int GameModel::deplacement(){
         return nombre_cases;
     }
     else if(obj == "***"){
-        m_s->setScoreTotal(m_s->getScoreTotal()+ 10); // Incrémentation du score total
+        randomBonus();
         return 1;
     }
     else
         return -1;
 }
 
-
-// Fonction permettant l'affichage de l'objet
-// retourne un string
+void GameModel::randomBonus()
+{
+    int x = rand()%3 + 1;
+    
+    switch(x)
+    {
+        case 0:
+            m_n->set_bonusVie(m_n->get_b_vie() +1);
+            m_p->setVie(m_p->getVie() +1);
+            break;
+        case 1:
+            m_n->set_bonusTemps(m_n->get_b_temps() +5);
+            break;
+        case 2:
+            m_n->set_score_bonus(m_n->get_score_bonus() +10);
+            m_s->setScoreTotal(m_s->getScoreTotal()+ 10);
+            break;
+    }
+}
 
 
 // Getters //
@@ -246,7 +297,7 @@ void GameModel::genereMatrice(){
             matrice[i][j] = new Case();
     }
 
-    for(int i=0; i<10; i++)
+    for(int i=0; i<m_n->getNb(); i++)
     {
         m_b[i] = new Bomb();
     }

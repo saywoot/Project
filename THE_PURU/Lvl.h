@@ -18,6 +18,9 @@ private:
     int m_lvl;
     int m_nb_bomb;
     int m_nb_bonus;
+    int m_bonus_temps;
+    int m_bonus_vie;
+    int m_score_bonus;
     Bomb b;
     Case *matrix[18][18];
 public:
@@ -25,8 +28,18 @@ public:
     //void set_lvl(int lvl, Case matrix);
     std::string toString() const;
     int getNb() const;
+    int get_score_bonus() const;
+    int get_b_temps() const;
+    int get_b_vie() const;
     int getBonus() const;
-
+    int getLevel() const;
+    void setBomb(int nb);
+    void setBonus(int nb);
+    void setLevel(int level);
+    
+    void set_bonusVie(int nb);
+    void set_bonusTemps(int nb);
+    void set_score_bonus(int nb);
 };
 
 #endif /* defined(__THE_PURU__Lvl__) */

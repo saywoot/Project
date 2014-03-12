@@ -21,10 +21,10 @@ public:
     int getScoreTotal() const;
     int getCible() const;
     std::string toString() const;
+    
 private:
     int nb_deplacement;
     int nb_score_total;
-    int cpt_bonnus;
     int m_cible;
 };
 

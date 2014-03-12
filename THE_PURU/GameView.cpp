@@ -19,7 +19,7 @@ GameView::GameView(){
 }
 GameView::~GameView()
 {
-  //destructor
+    
 }
 void GameView::setModel(GameModel *model)
 {
@@ -59,21 +59,22 @@ void GameView::affiche() const
 void GameView::answer_move(GameModel *model) {
     string answer;
     do{
-        cout << "\n\nDans quelle direction voulez-vous déplacer le mineur ? (N / NE / E / SE / S / SO / O / NO) : ";
+        cout << "\n\nDans quelle direction voulez-vous déplacer le mineur ? (N / NE / E / SE / S / SO / O / NO) : " << endl;
+        cout << "Abandonner : 1" << endl;
         cin >> answer;
     }while(!model->check_answer(answer));
     model->set_answer_move(answer);
 }
 void GameView::presentation() const
 {
-    cout <<"  ___   _     _   ___   _     _       ___   _     _   ___   _     _      ___    _    ____      ____" << endl;
-    cout <<" /   \\ | |   | | /   \\ | |   | |     /   \\ | |   | | /   \\ | |   | |    |   \\  | |  / __ \\    / __ \\" << endl;
-    cout <<"|  _  \\| |   | ||  _  \\| |   | |    |  _  \\| |   | ||  _  \\| |   | |    | |\\ \\ | | / /  \\_\\  / /  \\_\\" << endl;
-    cout <<"| |_| /| |   | || |_| /| |   | | __ | |_| /| |   | || |_| /| |   | | __ | | | || || |    __ | |    __" << endl;
-    cout <<"|  __/ | |   | ||  __/ | |   | ||__||  __/ | |   | ||  __/ | |   | ||__|| | | || || |   | _|| |   | _|" << endl;
-    cout <<"| |    | |   | ||   \\  | |   | |    | |    | |   | ||   \\  | |   | |    | | | || || |   | | | |   | |" << endl;
-    cout <<"| |    | \\___/ || |\\ \\ | \\___/ |    | |    | \\___/ || |\\ \\ | \\___/ |    | |/ / | | \\ \\__/ |  \\ \\__/ |" << endl;
-    cout <<"|_|     \\_____/ |_| \\_\\ \\_____/     |_|     \\_____/ |_| \\_\\ \\_____/     |___/  |_|  \\____/    \\____/" << endl;
+    cout <<"  ___   _     _   ___   _     _       ___   _     _   ___   _     _      ___    _    ____      ____"                           << endl;
+    cout <<" /   \\ | |   | | /   \\ | |   | |     /   \\ | |   | | /   \\ | |   | |    |   \\  | |  / __ \\    / __ \\"                   << endl;
+    cout <<"|  _  \\| |   | ||  _  \\| |   | |    |  _  \\| |   | ||  _  \\| |   | |    | |\\ \\ | | / /  \\_\\  / /  \\_\\"               << endl;
+    cout <<"| |_| /| |   | || |_| /| |   | | __ | |_| /| |   | || |_| /| |   | | __ | | | || || |    __ | |    __"                         << endl;
+    cout <<"|  __/ | |   | ||  __/ | |   | ||__||  __/ | |   | ||  __/ | |   | ||__|| | | || || |   | _|| |   | _|"                        << endl;
+    cout <<"| |    | |   | ||   \\  | |   | |    | |    | |   | ||   \\  | |   | |    | | | || || |   | | | |   | |"                       << endl;
+    cout <<"| |    | \\___/ || |\\ \\ | \\___/ |    | |    | \\___/ || |\\ \\ | \\___/ |    | |/ / | | \\ \\__/ |  \\ \\__/ |"             << endl;
+    cout <<"|_|     \\_____/ |_| \\_\\ \\_____/     |_|     \\_____/ |_| \\_\\ \\_____/     |___/  |_|  \\____/    \\____/"                << endl;
     cout << endl;
     cout << endl;
     cout << "Voulez-vous jouer ou quitter ? \n" << endl;
@@ -81,7 +82,7 @@ void GameView::presentation() const
 }
 void GameView::rejouer() const
 {
-    cout << "Vous avez perdu ! Vous n'avez plus de vies" << endl;
+    cout << "Vous avez perdu ou décider d'abandonner" << endl;
     cout << " Voulez rejouer ? " << endl;
     cout << " Quitter: 1 " << "\t" << "Rejouer: 0" << endl;
 }
