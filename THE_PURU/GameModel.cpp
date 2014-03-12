@@ -22,7 +22,7 @@ GameModel::GameModel()
     m_p = new Player();                     // Appel du constructeur du player
     m_n = new Lvl();                        // Appel du constructeur de Level
     m_s = new Score();                      // Appel du constructeur de Score
-
+    
     m_b = new Bomb*[10];
     for(int i=0; i<10; i++)
     {

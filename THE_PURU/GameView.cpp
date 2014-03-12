@@ -53,8 +53,7 @@ void GameView::affiche() const
     cout << "|" <<endl ;
     cout << endl;
 
-    cout << m_model->getPlayer().toString() << "\t\t\t\t" <<m_model->getLvl().toString()  << "\n"
-    << m_model->getScore().toString() << "\t\t\t" << m_model->getScore().afficheScoreTotal() << endl;
+    cout << m_model->getPlayer().toString() << "\t\t\t" <<m_model->getLvl().toString()  <<endl << m_model->getScore().toString() <<endl ;
 }
 
 void GameView::answer_move(GameModel *model) {
