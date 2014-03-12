@@ -29,23 +29,29 @@ private:
     Player *m_p;
     Lvl *m_n;
     Score *m_s;
+    Bomb **m_b;
     std::string m_answer_move;
     bool m_continuer;
+    int nb_cases;
+    int i;
+
 public:
     GameModel();
     ~GameModel();
-    void direction();
     void set_answer_move(std::string a);
     std::string get_answer_move();
     const Player& getPlayer() const;
     const Score& getScore() const;
     const Lvl& getLvl() const;
-    bool check_answer(std::string a);
-    int deplacement();
     bool getContinuer() const;
     void setContinuer(bool value);
-    Case*** getMatrice() const;
     void setMatrice(Case*** matriceBis);
+    void direction(std::string answer);
+    bool check_answer(std::string a);
+    int deplacement();
+    void move(int x, int y);
+
+    Case*** getMatrice() const;
     void genereMatrice();
 
 };

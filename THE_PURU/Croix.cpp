@@ -16,7 +16,7 @@ using namespace std;
 
 Croix::Croix():Case() // Appel du constructeur de la class Mère
 {
-    m_obj="X";
+    m_obj=" ";
     set_pos(rand()%WIDTH_GAME, rand()%HEIGHT_GAME);
 }
 

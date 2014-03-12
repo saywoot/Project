@@ -14,13 +14,14 @@
 #include "Case.h"
 #include "Position.h"
 
-class Player : public Case{    
+class Player : public Case{
 public:
     Player();
     Player(int x, int y, std::string o);
     std::string toString() const;
     Position get_position();
     void setVie(int nb);
+    void deplacement(int x, int y);
     void set_position(int x, int y);
     int getVie() const;
     void move_N();
@@ -31,7 +32,7 @@ public:
     void move_SO();
     void move_O();
     void move_NO();
-    
+
 private:
     int m_vie;
 };

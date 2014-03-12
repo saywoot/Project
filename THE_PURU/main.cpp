@@ -20,7 +20,7 @@ int main()
     while(reponse == 0){
         view->affiche();
         view->answer_move(model);
-        model->direction();
+        model->direction(model->get_answer_move());
         if(model->getContinuer() == false)
         {
             model->genereMatrice();
