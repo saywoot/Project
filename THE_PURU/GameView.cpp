@@ -19,7 +19,7 @@ GameView::GameView(){
 }
 GameView::~GameView()
 {
-    
+
 }
 void GameView::setModel(GameModel *model)
 {

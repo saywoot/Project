@@ -23,7 +23,7 @@ GameModel::GameModel()
     m_n = new Lvl();                        // Appel du constructeur de Level
     m_s = new Score();                      // Appel du constructeur de Score
     fin = true;
- 
+
     m_b = new Bomb*[30];
     for(int i=0; i<m_n->getNb(); i++)
     {
@@ -68,9 +68,15 @@ GameModel::~GameModel()
     }
     delete[] matrice;                           // Désallocation de la matrice
 
+    delete [] m_b;
+
     /* Désallocation du score */
     if(m_s != NULL)
         delete m_s;
+    if(m_p != NULL)
+        delete m_p;
+    if(m_n != NULL)
+        delete m_n;
 
 }
 void GameModel::direction(string answer){
@@ -125,19 +131,22 @@ bool GameModel::check_answer(std::string a){
     else
         return false;
 }
-
+// Vérifie si le score n'est pas inférieur à 0
 bool GameModel::endGame()
 {
     if(m_p->getVie() <= 0){
         fin = false;
+        m_s->tabScore();
         return fin;
     }
     return fin;
 }
+// Setter pour changer le valeur de fin de jeu
 void GameModel::setEndGame(bool choix)
 {
     fin = choix;
 }
+// Getters EndGame()
 bool GameModel::getEndGame()
 {
     return fin;
@@ -146,14 +155,12 @@ bool GameModel::getEndGame()
 void GameModel::initLevel()
 {
     m_n->setLevel(1);
-    m_n->set_bonusTemps(0);
-    m_n->set_bonusVie(0);
-    m_n->set_score_bonus(0);
+    m_n->initBonus();
     m_s->setCible(10);
-    m_p->setVie(3);
     m_s->setScoreTotal(0);
+    m_p->setVie(3);
 }
-void GameModel::verifLevel()
+void GameModel::perteVie()
 {
     cout << " Vous venez de perdre une vie !" << endl;
     m_p->setVie(m_p->getVie() - 1); // On décremente la vie
@@ -172,7 +179,7 @@ void GameModel::move(int pos_x, int pos_y)
 
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases); // Incrémentation du nombre de déplacement
             m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases); // Incrémentation du score total
-            
+
             i = 1;                                              // Initialisation de i à 1
 
             while(i < nb_cases && deplacement() != -1)
@@ -188,11 +195,11 @@ void GameModel::move(int pos_x, int pos_y)
                 objectifAtteint();
             }
             else{
-                verifLevel();
+                perteVie();
             }
         }
         else{
-            verifLevel();
+            perteVie();
         }
 }
 void GameModel::objectifAtteint()
@@ -204,11 +211,9 @@ void GameModel::changeLevel()
 {
     cout << "Vous avez changé de niveau " << endl;
     m_n->setLevel(m_n->getLevel() + 1); // J'incrémente le level grâce à la surcharge
-    m_s->setCible(m_s->getCible() + 10);
-    m_n->set_bonusVie(0);
-    m_n->set_bonusTemps(0);
-    m_n->set_score_bonus(0);
-    
+    m_s->setCible(m_s->getCible() + 5);
+    m_n->initBonus();
+
     if(m_n->getLevel()%2 == 0){
        m_n->setBomb(m_n->getNb() +1);
        m_n->setBonus(m_n->getBonus() +1);
@@ -243,7 +248,7 @@ int GameModel::deplacement(){
 void GameModel::randomBonus()
 {
     int x = rand()%3 + 1;
-    
+
     switch(x)
     {
         case 0:

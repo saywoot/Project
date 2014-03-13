@@ -21,7 +21,8 @@ public:
     int getScoreTotal() const;
     int getCible() const;
     std::string toString() const;
-    
+    void tabScore();
+
 private:
     int nb_deplacement;
     int nb_score_total;
