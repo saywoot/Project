@@ -1,11 +1,3 @@
-//
-//  Bomb.cpp
-//  THE_PURU
-//
-//  Created by sayw00t on 24/02/2014.
-//  Copyright (c) 2014 sayw00t. All rights reserved.
-//
-
 #include "Bomb.h"
 #include "Position.h"
 #include <string>
@@ -16,7 +8,7 @@ using namespace std;
 
 Bomb::Bomb():Case() // Appel du constructeur de la class Mère
 {
-    m_obj="@@@";
+    m_obj = "@@@";
     set_pos(rand()%(WIDTH_GAME), rand()%(HEIGHT_GAME));
 }
 

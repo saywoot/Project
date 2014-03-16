@@ -56,10 +56,10 @@ public:
     bool getEndGame();
     void setEndGame(bool choix);
     void initLevel();
-    void verifLevel();
+    void perteVie();
     void changeLevel();
     void objectifAtteint();
-    
+
     void randomBonus();
 
     Case*** getMatrice() const;

@@ -1,11 +1,3 @@
-//
-//  Player.cpp
-//  THE_PURU
-//
-//  Created by sayw00t on 24/02/2014.
-//  Copyright (c) 2014 sayw00t. All rights reserved.
-//
-
 #include "Player.h"
 #include "Position.h"
 #include <string>
@@ -14,8 +6,6 @@
 #include "Const.h"
 
 using namespace std;
-
-
 
 Player::Player(): Case(){
     m_obj="$$$";

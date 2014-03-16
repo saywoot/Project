@@ -1,11 +1,3 @@
-//
-//  GameView.cpp
-//  THE_PURU
-//
-//  Created by sayw00t on 24/02/2014.
-//  Copyright (c) 2014 sayw00t. All rights reserved.
-//
-
 #include "GameView.h"
 #include "GameModel.h"
 #include "Const.h"
@@ -19,7 +11,7 @@ GameView::GameView(){
 }
 GameView::~GameView()
 {
-    
+
 }
 void GameView::setModel(GameModel *model)
 {
@@ -40,7 +32,10 @@ void GameView::affiche() const
             {
                 cout << "|$$$";
             }
-            else if(matrice[i][j]->getObj() == "$$$" || matrice[i][j]->getObj() == "@@@" ||  matrice[i][j]->getObj() == "***")
+            else if(matrice[i][j]->getObj() == "$$$" || matrice[i][j]->getObj() == "@@@")
+                cout << "|" << matrice[i][j]->getObj();
+            else if(matrice[i][j]->getObj() == "-1-" || matrice[i][j]->getObj() == "-2-" || matrice[i][j]->getObj() == "-3-" ||
+                    matrice[i][j]->getObj() == "-4-" || matrice[i][j]->getObj() == "-5-" || matrice[i][j]->getObj() == "-6-")
                 cout << "|" << matrice[i][j]->getObj();
             else
                 cout << "| " << matrice[i][j]->getObj() <<" ";

@@ -1,11 +1,3 @@
-//
-//  Lvl.cpp
-//  THE_PURU
-//
-//  Created by sayw00t on 24/02/2014.
-//  Copyright (c) 2014 sayw00t. All rights reserved.
-//
-
 #include "Lvl.h"
 #include <sstream>
 #include <iostream>
@@ -36,7 +28,7 @@ string Lvl::toString() const
 {
     std::ostringstream out;
     out<< "Level : " << m_lvl << "\nScore Bonus :" << m_score_bonus << "\t\t\t\tBonus Temps: " << m_bonus_temps << "\nBonus Vie: " << m_bonus_vie;
-    
+
 
     std::string s = out.str();
     return s;
@@ -79,6 +71,13 @@ void Lvl::set_score_bonus(int nb)
 {
     m_score_bonus = nb;
 }
+void Lvl::initBonus()
+{
+    set_bonusVie(0);
+    set_bonusTemps(0);
+    set_score_bonus(0);
+}
+
 
 
 

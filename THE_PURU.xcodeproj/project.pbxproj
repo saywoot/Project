@@ -16,6 +16,11 @@
 		287B6FCE18BB822500F05779 /* Lvl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 287B6FCC18BB822500F05779 /* Lvl.cpp */; };
 		287B6FD118BBA6B700F05779 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 287B6FCF18BBA6B700F05779 /* Position.cpp */; };
 		287B6FD418BBA86D00F05779 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 287B6FD218BBA86D00F05779 /* Player.cpp */; };
+		8F641D6D18D1CFA400F13810 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F641D6C18D1CFA400F13810 /* XCTest.framework */; };
+		8F641D6E18D1CFA400F13810 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F641D5E18D1CFA400F13810 /* Foundation.framework */; };
+		8F641D7018D1CFA400F13810 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F641D6F18D1CFA400F13810 /* UIKit.framework */; };
+		8F641D7918D1CFA400F13810 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8F641D7718D1CFA400F13810 /* InfoPlist.strings */; };
+		8F641D7B18D1CFA400F13810 /* LirbaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F641D7A18D1CFA400F13810 /* LirbaryTests.m */; };
 		8FA5F62018BFB11500951084 /* Croix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F61F18BFB11500951084 /* Croix.cpp */; };
 		8FA5F62518BFBE5600951084 /* Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FA5F62418BFBE5600951084 /* Score.cpp */; };
 		8FAA4C3418C8E802002A1C5F /* BonusCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FAA4C3218C8E802002A1C5F /* BonusCase.cpp */; };
@@ -53,6 +58,18 @@
 		287B6FD218BBA86D00F05779 /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Player.cpp; path = THE_PURU/Player.cpp; sourceTree = "<group>"; };
 		287B6FD318BBA86D00F05779 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = THE_PURU/Player.h; sourceTree = "<group>"; };
 		287B6FD518BBA8F900F05779 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Const.h; path = THE_PURU/Const.h; sourceTree = "<group>"; };
+		8F641D5E18D1CFA400F13810 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8F641D6218D1CFA400F13810 /* Lirbary-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Lirbary-Prefix.pch"; sourceTree = "<group>"; };
+		8F641D6318D1CFA400F13810 /* Lirbary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Lirbary.h; sourceTree = "<group>"; };
+		8F641D6518D1CFA400F13810 /* Lirbary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Lirbary.m; sourceTree = "<group>"; };
+		8F641D6B18D1CFA400F13810 /* LirbaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LirbaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F641D6C18D1CFA400F13810 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8F641D6F18D1CFA400F13810 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		8F641D7618D1CFA400F13810 /* LirbaryTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LirbaryTests-Info.plist"; sourceTree = "<group>"; };
+		8F641D7818D1CFA400F13810 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8F641D7A18D1CFA400F13810 /* LirbaryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LirbaryTests.m; sourceTree = "<group>"; };
+		8F641D8218D1CFB400F13810 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		8F641D9018D1CFDB00F13810 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		8FA5F61F18BFB11500951084 /* Croix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Croix.cpp; path = THE_PURU/Croix.cpp; sourceTree = "<group>"; };
 		8FA5F62118BFB13600951084 /* Croix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Croix.h; path = THE_PURU/Croix.h; sourceTree = "<group>"; };
 		8FA5F62318BFBE4400951084 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Score.h; path = THE_PURU/Score.h; sourceTree = "<group>"; };
@@ -69,6 +86,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F641D6818D1CFA400F13810 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F641D6D18D1CFA400F13810 /* XCTest.framework in Frameworks */,
+				8F641D7018D1CFA400F13810 /* UIKit.framework in Frameworks */,
+				8F641D6E18D1CFA400F13810 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +105,9 @@
 				8F6C796118BD1857003538F4 /* .Cpp */,
 				8F6C796018BD1850003538F4 /* Headers */,
 				287B6FB318BB819800F05779 /* THE_PURU */,
+				8F641D6018D1CFA400F13810 /* Lirbary */,
+				8F641D7418D1CFA400F13810 /* LirbaryTests */,
+				8F641D5D18D1CFA400F13810 /* Frameworks */,
 				287B6FB218BB819800F05779 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				287B6FB118BB819800F05779 /* THE_PURU */,
+				8F641D6B18D1CFA400F13810 /* LirbaryTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +127,54 @@
 				287B6FB618BB819800F05779 /* THE_PURU.1 */,
 			);
 			path = THE_PURU;
+			sourceTree = "<group>";
+		};
+		8F641D5D18D1CFA400F13810 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8F641D9018D1CFDB00F13810 /* CoreFoundation.framework */,
+				8F641D8218D1CFB400F13810 /* CoreFoundation.framework */,
+				8F641D5E18D1CFA400F13810 /* Foundation.framework */,
+				8F641D6C18D1CFA400F13810 /* XCTest.framework */,
+				8F641D6F18D1CFA400F13810 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8F641D6018D1CFA400F13810 /* Lirbary */ = {
+			isa = PBXGroup;
+			children = (
+				8F641D6318D1CFA400F13810 /* Lirbary.h */,
+				8F641D6518D1CFA400F13810 /* Lirbary.m */,
+				8F641D6118D1CFA400F13810 /* Supporting Files */,
+			);
+			path = Lirbary;
+			sourceTree = "<group>";
+		};
+		8F641D6118D1CFA400F13810 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8F641D6218D1CFA400F13810 /* Lirbary-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8F641D7418D1CFA400F13810 /* LirbaryTests */ = {
+			isa = PBXGroup;
+			children = (
+				8F641D7A18D1CFA400F13810 /* LirbaryTests.m */,
+				8F641D7518D1CFA400F13810 /* Supporting Files */,
+			);
+			path = LirbaryTests;
+			sourceTree = "<group>";
+		};
+		8F641D7518D1CFA400F13810 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8F641D7618D1CFA400F13810 /* LirbaryTests-Info.plist */,
+				8F641D7718D1CFA400F13810 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		8F6C796018BD1850003538F4 /* Headers */ = {
@@ -154,6 +233,23 @@
 			productReference = 287B6FB118BB819800F05779 /* THE_PURU */;
 			productType = "com.apple.product-type.tool";
 		};
+		8F641D6A18D1CFA400F13810 /* LirbaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F641D8118D1CFA400F13810 /* Build configuration list for PBXNativeTarget "LirbaryTests" */;
+			buildPhases = (
+				8F641D6718D1CFA400F13810 /* Sources */,
+				8F641D6818D1CFA400F13810 /* Frameworks */,
+				8F641D6918D1CFA400F13810 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LirbaryTests;
+			productName = LirbaryTests;
+			productReference = 8F641D6B18D1CFA400F13810 /* LirbaryTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -176,9 +272,21 @@
 			projectRoot = "";
 			targets = (
 				287B6FB018BB819800F05779 /* THE_PURU */,
+				8F641D6A18D1CFA400F13810 /* LirbaryTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8F641D6918D1CFA400F13810 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F641D7918D1CFA400F13810 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		287B6FAD18BB819800F05779 /* Sources */ = {
@@ -199,7 +307,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F641D6718D1CFA400F13810 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F641D7B18D1CFA400F13810 /* LirbaryTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8F641D7718D1CFA400F13810 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8F641D7818D1CFA400F13810 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		287B6FB818BB819800F05779 /* Debug */ = {
@@ -284,6 +411,51 @@
 			};
 			name = Release;
 		};
+		8F641D7E18D1CFA400F13810 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Lirbary/Lirbary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "LirbaryTests/LirbaryTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8F641D7F18D1CFA400F13810 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Lirbary/Lirbary-Prefix.pch";
+				INFOPLIST_FILE = "LirbaryTests/LirbaryTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -301,6 +473,15 @@
 			buildConfigurations = (
 				287B6FBB18BB819800F05779 /* Debug */,
 				287B6FBC18BB819800F05779 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8F641D8118D1CFA400F13810 /* Build configuration list for PBXNativeTarget "LirbaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F641D7E18D1CFA400F13810 /* Debug */,
+				8F641D7F18D1CFA400F13810 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

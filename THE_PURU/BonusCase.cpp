@@ -1,11 +1,3 @@
-//
-//  Bomb.cpp
-//  THE_PURU
-//
-//  Created by Etienne on 24/02/2014.
-//  Copyright (c) 2014 Etienne. All rights reserved.
-//
-
 #include "BonusCase.h"
 #include "Position.h"
 #include <string>
@@ -16,7 +8,8 @@ using namespace std;
 
 BonusCase::BonusCase():Case() // Appel du constructeur de la class Mère
 {
-    m_obj="***";
+    string entier = ELEM[rand()%(NB_ELEM)];
+    m_obj= "-" + entier + "-";
     set_pos(rand()%WIDTH_GAME, rand()%HEIGHT_GAME);
 }
 

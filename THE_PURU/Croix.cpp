@@ -1,11 +1,3 @@
-//
-//  Bomb.cpp
-//  THE_PURU
-//
-//  Created by Etienne on 24/02/2014.
-//  Copyright (c) 2014 sayw00t. All rights reserved.
-//
-
 #include "Croix.h"
 #include "Position.h"
 #include <string>

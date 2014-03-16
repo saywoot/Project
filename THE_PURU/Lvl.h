@@ -36,10 +36,11 @@ public:
     void setBomb(int nb);
     void setBonus(int nb);
     void setLevel(int level);
-    
+    void initBonus();
     void set_bonusVie(int nb);
     void set_bonusTemps(int nb);
     void set_score_bonus(int nb);
+
 };
 
 #endif /* defined(__THE_PURU__Lvl__) */

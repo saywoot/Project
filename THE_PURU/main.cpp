@@ -16,7 +16,7 @@ int main()
 
     int reponse;
     cin >> reponse;
-   
+
     while(reponse == 0)
     {
         if(model->getEndGame() == true)
@@ -33,6 +33,7 @@ int main()
             model->initLevel();
         }
     }
+
     delete view;
     delete model;
 
