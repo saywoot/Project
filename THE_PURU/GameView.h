@@ -24,6 +24,8 @@ public:
     void presentation() const;
     void answer_move(GameModel *model);
     void rejouer() const;
+    void affichageScore() const;
+    void retourMenu() const;
 
 private:
     GameModel *m_model;

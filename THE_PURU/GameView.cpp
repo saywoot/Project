@@ -3,6 +3,7 @@
 #include "Const.h"
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <string>
 using namespace std;
 
@@ -48,14 +49,14 @@ void GameView::affiche() const
     cout << "|" <<endl ;
     cout << endl;
 
-    cout << m_model->getPlayer().toString() << "\t\t\t" << m_model->getLvl().toString() << endl << m_model->getScore().toString() << endl;
+    cout <<  m_model->getScore().toString() << m_model->getLvl().toString() << "\t\t\t\t\t\t" << m_model->getPlayer().toString() << endl;
 }
 
 void GameView::answer_move(GameModel *model) {
     string answer;
     do{
-        cout << "\n\nDans quelle direction voulez-vous déplacer le mineur ? (N / NE / E / SE / S / SO / O / NO) : " << endl;
-        cout << "Abandonner : 1" << endl;
+        cout << "\n\nAbandonner : 1" << endl;
+        cout << "Dans quelle direction voulez-vous déplacer le mineur ? (N / NE / E / SE / S / SO / O / NO) : " << endl;
         cin >> answer;
     }while(!model->check_answer(answer));
     model->set_answer_move(answer);
@@ -73,7 +74,7 @@ void GameView::presentation() const
     cout << endl;
     cout << endl;
     cout << "Voulez-vous jouer ou quitter ? \n" << endl;
-    cout << " Quitter: 1 " << "\t" << "Jouer: 0" << endl;
+    cout  << "Jouer: 0" << "\tQuitter: 1 " << "MeilleurScores: 2" << endl;
 }
 void GameView::rejouer() const
 {
@@ -81,3 +82,31 @@ void GameView::rejouer() const
     cout << " Voulez rejouer ? " << endl;
     cout << " Quitter: 1 " << "\t" << "Rejouer: 0" << endl;
 }
+void GameView::affichageScore() const
+{
+    fstream f;
+    f.open("/Users/Etienne/Project/THE_PURU/scores.txt", ios::in); // ouverture du fichier en ecriture ficNb
+    if( f.fail() )
+    {// Si probleme afficher une erreur
+        cerr << "ouverture en lecture impossible" << endl;
+        f.close();
+    }
+    string phrase;
+    f >> phrase;
+    while(!f.eof()){
+        cout << phrase << endl;
+        f >> phrase;
+    }
+    cout << endl;
+    
+    f.close(); // fermeture du fichier
+}
+void GameView::retourMenu() const
+{
+    cout << "\n\nVoulez-vous quitter ou jouer ?" << endl;
+    cout  << "Jouer: 0" << "\tQuitter: 1 " << endl;
+}
+
+
+
+

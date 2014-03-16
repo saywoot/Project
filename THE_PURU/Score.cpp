@@ -40,7 +40,7 @@ int Score::getCible() const
 string Score::toString() const
 {
     std::ostringstream out;
-    out<< "Le score déplacement: " << nb_deplacement << "\t\tLe score cible: " << m_cible << "\nLe score total: " << nb_score_total << "\n";
+    out<< "Le score déplacement: " << nb_deplacement << "\t\t\tLe score cible: " << m_cible << "\t\t\tLe score total: " << nb_score_total << endl;
 
     std::string s = out.str();
     return s;
@@ -48,10 +48,11 @@ string Score::toString() const
 void Score::tabScore()
 {
     string reponse;
-    cout << "Veuillez rentrez votre nom" << endl;
-    cin >> reponse;
+    cout << "\nVeuillez rentrez votre nom" << endl;
+    cin >> reponse ;
+    cout << endl;
     fstream f;
-    f.open( "scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
+    f.open( "/Users/Etienne/Project/THE_PURU/scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
     if( f.fail() )
     {// Si probleme afficher une erreur
         cerr << "ouverture en lecture impossible" << endl;

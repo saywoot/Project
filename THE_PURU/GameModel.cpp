@@ -154,11 +154,26 @@ void GameModel::initLevel()
 }
 void GameModel::perteVie()
 {
-    cout << " Vous venez de perdre une vie !" << endl;
+    int reponse;
     m_p->setVie(m_p->getVie() - 1); // On décremente la vie
     m_s->setDeplacement(0); // On remet le score déplacement à O
-    genereMatrice();
-    endGame();
+    
+    
+    if(m_p->getVie() > 0){
+        cout << " \nVous venez de perdre une vie !" << endl;
+        cout << " Voulez-vous continuer ?" << endl;
+        cout << " Continuer: 0 \t\t\t Quitter: 1" << endl;
+        cin >> reponse;
+    
+        if(reponse == 0){
+            genereMatrice();
+            endGame();
+        }
+        else
+            setEndGame(false);
+    }
+    else
+        endGame();
 }
 void GameModel::move(int pos_x, int pos_y)
 {
@@ -174,8 +189,8 @@ void GameModel::move(int pos_x, int pos_y)
 
             i = 1;                                              // Initialisation de i à 1
 
-            while(i < nb_cases && deplacement() != -1)
-            {                                                       // Tant que le joueur n'a pas atteint la case et que la case suivante est un chiffre
+            while(i < nb_cases && deplacement() != -1)   // Tant que le joueur n'a pas atteint la case et que la case suivante est un chiffre
+            {
                 delete matrice[m_p->get_y()][m_p->get_x()];         // On libére la case du joueur
                 matrice[m_p->get_y()][m_p->get_x()] = new Croix();  // Appel du constructeur de la croix pour la mettre dans la case précédente du joueur
                 m_p->deplacement(pos_x, pos_y);                                      // Puis on fait monter le joueur à nouveau
@@ -190,9 +205,10 @@ void GameModel::move(int pos_x, int pos_y)
                 perteVie();
             }
         }
-        else{
+    
+        else
             perteVie();
-        }
+        
 }
 void GameModel::objectifAtteint()
 {
@@ -201,17 +217,25 @@ void GameModel::objectifAtteint()
 }
 void GameModel::changeLevel()
 {
-    cout << "Vous avez changé de niveau " << endl;
+    int reponse;
     m_n->setLevel(m_n->getLevel() + 1); // J'incrémente le level grâce à la surcharge
     m_s->setCible(m_s->getCible() + 5);
     m_n->initBonus();
-
+    
     if(m_n->getLevel()%2 == 0){
-       m_n->setBomb(m_n->getNb() +1);
-       m_n->setBonus(m_n->getBonus() +1);
-     }
+        m_n->setBomb(m_n->getNb() +1);
+        m_n->setBonus(m_n->getBonus() +1);
+    }
     m_s->setDeplacement(0); // On remet le score déplacement à O
-    genereMatrice();
+    cout << "\nVous avez changé de niveau " << endl;
+    cout << "Continuer :0 \t\t\t Quitter: 1" << endl;
+    cin >> reponse;
+    if(reponse == 0){
+        cout << " Vous êtes au niveau " << m_n->getLevel() << endl;
+        genereMatrice(); // Sinon on joue
+    }
+    else
+        setEndGame(false); // Sinon on sort du jeu
 }
 int GameModel::deplacement(){
     
