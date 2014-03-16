@@ -52,7 +52,6 @@ void Score::tabScore()
     cin >> reponse;
     fstream f;
     f.open( "scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
-
     if( f.fail() )
     {// Si probleme afficher une erreur
         cerr << "ouverture en lecture impossible" << endl;
