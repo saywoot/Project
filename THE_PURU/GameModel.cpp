@@ -214,6 +214,7 @@ void GameModel::changeLevel()
     genereMatrice();
 }
 int GameModel::deplacement(){
+    
     string obj;
     if(m_p->get_x() >= 0 && m_p->get_x() < WIDTH_GAME && m_p->get_y() >= 0 && m_p->get_y() < HEIGHT_GAME){
          obj = matrice[m_p->get_y()][m_p->get_x()]->getObj();
@@ -221,16 +222,29 @@ int GameModel::deplacement(){
     else{
         return -1;
     }
-    if(obj != " " && obj != "@@@" && obj != m_p->getObj() && obj != "***")
+    if(obj != " " && obj != "@@@" && obj != m_p->getObj() && obj != "-1-" && obj != "-2-" &&
+       obj != "-3-" && obj != "-4-" && obj != "-5-" && obj != "-6-")
     {
         istringstream iss(obj);
         int nombre_cases;
         iss >> nombre_cases;
         return nombre_cases;
     }
-    else if(obj == "***"){
+    else if(obj == "-1-" || obj == "-2-" || obj == "-3-" ||
+            obj == "-4-" || obj == "-5-" || obj == "-6-"){
         randomBonus();
-        return 1;
+        if(obj == "-1-")
+            return 1;
+        else if(obj == "-2-")
+            return 2;
+        else if(obj == "-3-")
+            return 3;
+        else if(obj == "-4-")
+            return 4;
+        else if(obj == "-5-")
+            return 5;
+        else
+            return 6;
     }
     else
         return -1;
