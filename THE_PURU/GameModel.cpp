@@ -9,6 +9,17 @@
 
 using namespace std;
 
+/************************************************************
+/Nom: GameModel                                             *
+/************************************************************
+/Type: Constructeur                                         *
+/************************************************************
+/Rôle: Initialise les pointeurs contenus et créé les cases  *
+/      contenues matrice et toutes les cases avec les       *
+/      différents objets. Initialise le tableau de bombes,  *
+/      le tableau de bonusCase également et place le joueur *
+/      dans la matrice.                                     *
+/************************************************************/
 GameModel::GameModel()
 {
     m_p = new Player();                     // Appel du constructeur du player
@@ -50,6 +61,15 @@ GameModel::GameModel()
     }
 
 }
+/************************************************************
+/Nom: ~GameModel                                            *
+/************************************************************
+/Type: Destructeur                                          *
+/************************************************************
+/Rôle: Permet de désallouer tous les pointeurs contenus dans*
+/      contenus dans la matrice, et de désallouer les cases *
+/      de la matrice. Désalloue également le joueur.        *
+/************************************************************/
 GameModel::~GameModel()
 {
     /* Allocation dynamique des cases */
@@ -71,6 +91,17 @@ GameModel::~GameModel()
         delete m_n;
 
 }
+/************************************************************
+/Nom: direction                                             *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Paramètres: answer de type string                          *
+*************************************************************
+/Rôle:  Fonction qui appelle la fonction move avec des      *
+/       paramètres différents qui changent en fonction de la*
+/       direction entrée par l'utilisateur.                 *
+/************************************************************/
 void GameModel::direction(string answer){
     if(answer=="N")
         move(0,-1);
@@ -89,14 +120,39 @@ void GameModel::direction(string answer){
     if(answer=="NE")
         move(1,-1);
 }
+/************************************************************
+/Nom: set_answer_move                                       *
+/************************************************************
+/Type: void  (setter)                                       *
+/************************************************************
+/Paramètres: variable a de type string                      *
+*************************************************************
+/Rôle: Affecte une chaine de caratére                       *
+/************************************************************/
 void GameModel::set_answer_move(std::string a){
     m_answer_move=a;
 }
-
+/************************************************************
+/Nom: get_answer_move                                       *
+/************************************************************
+/Type: string (getter)                                      *
+/************************************************************
+/Rôle: Retourne la valeur de la varaible m_answer_move      *
+/************************************************************/
 std::string GameModel::get_answer_move(){
     return m_answer_move;
 }
-
+/************************************************************
+/Nom: check_answer                                          *
+/************************************************************
+/Type: bool                                                 *
+/************************************************************
+/Paramètres: variable a de type string                      *
+*************************************************************
+/Rôle:  Retourne vrai ou faux en fonction de la saisie de   *
+/       l'utilisateur au clavier lors de la demande de      *
+/       la direction voulue.                                *
+/************************************************************/
 bool GameModel::check_answer(std::string a){
     if(a == "N" || a == "NE" || a == "E" || a == "SE" || a == "S" || a == "SO" ||
        a == "O" || a == "NO"){
@@ -115,6 +171,10 @@ bool GameModel::check_answer(std::string a){
         else
             return true;
     }
+    /*******************************************************
+    / Si le joueur décide de quitter en cours de partie on *
+    / revient au menu.                                     *
+    /******************************************************/
     else if(a == "1")
     {
         fin = false;
@@ -123,7 +183,15 @@ bool GameModel::check_answer(std::string a){
     else
         return false;
 }
-// Vérifie si le score n'est pas inférieur à 0
+/************************************************************
+/Nom: endGame                                               *
+/************************************************************
+/Type: bool                                                 *
+/************************************************************
+/Rôle:  Fonction qui vérifie que la vie du joueur n'est pas *
+/       inférieur à 0. Retourne la valeur de fin et appelle *
+/       la fonction tabScore si la parite est finie         *
+/************************************************************/
 bool GameModel::endGame()
 {
     if(m_p->getVie() <= 0){
@@ -133,17 +201,40 @@ bool GameModel::endGame()
     }
     return fin;
 }
-// Setter pour changer le valeur de fin de jeu
+/************************************************************
+/Nom: setEndGame                                            *
+/************************************************************
+/Type: void (setter)                                        *
+/************************************************************
+/Paramètres: variable choix de type bool                    *
+*************************************************************
+/Rôle:  Affecte la valeur de choix à la variable fin        *
+/************************************************************/
 void GameModel::setEndGame(bool choix)
 {
     fin = choix;
 }
-// Getters EndGame()
+/************************************************************
+/Nom: getEndGame                                            *
+/************************************************************
+/Type: bool   (getter)                                      *
+/************************************************************
+/Rôle:  Retourne la variable fin                            *
+/************************************************************/
 bool GameModel::getEndGame()
 {
     return fin;
 }
-// Fonction pour remettre à zéro si on a perdu les trois vies
+/************************************************************
+/Nom: initLevel                                             *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle:  Fonction appelée lorsque l'on commence un niveau.   *
+/       Elle appelle les fonctionsdes classes Score, Lvl et *
+/       Player et affecte des valeurs de début de parties au*
+/       différents attributs (bonus à 0, level à 1).        *
+/************************************************************/
 void GameModel::initLevel()
 {
     m_n->setLevel(1);
@@ -152,6 +243,15 @@ void GameModel::initLevel()
     m_s->setScoreTotal(0);
     m_p->setVie(3);
 }
+/************************************************************
+/Nom: perteVie                                              *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle:  Fonction appelée lors de la perte d'une vie. Elle   *
+/       décrémente la vie et gère le cas où le joueur veut  *
+/       continuer et celui ou celui-ci veut s'arrêter       *
+/************************************************************/
 void GameModel::perteVie()
 {
     int reponse;
@@ -177,6 +277,17 @@ void GameModel::perteVie()
     else
         endGame();
 }
+/************************************************************
+/Nom: move                                                  *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Paramètres: variable pos_x,pos_y de type integer           *
+*************************************************************
+/Rôle:  Focntion principale du déplacement. Elle permet de  *
+/       déplacer le joueur, vérifier que le joueur ne       *
+/       rencontre pas une bombe ou ne sorte de la matrice   *
+/************************************************************/
 void GameModel::move(int pos_x, int pos_y)
 {
     int x = m_p->get_x();
@@ -186,23 +297,23 @@ void GameModel::move(int pos_x, int pos_y)
      m_p->deplacement(pos_x,pos_y);
      nb_cases = deplacement();
 
-	  string obj = matrice[m_p->get_y()][m_p->get_x()]->getObj(); // Test si la case suivante, la premiere, est une bombe
+	  string obj = matrice[m_p->get_y()][m_p->get_x()]->getObj();  // Test si la case suivante, la premiere, est une bombe
         if(obj == "@@@"){
             nb_cases = 0;
         }
 
-		 if(nb_cases == 0) // Si c'est une bombe on recule
+		 if(nb_cases == 0)                                          // Si c'est une bombe on recule
         {
             m_p->set_pos(x, y);
         }
-        else if(nb_cases != -1 ){                                       // Mouvement vers le Nord du joueur
+        else if(nb_cases != -1 ){
 
-            m_s->setDeplacement(m_s->getDeplacement()+nb_cases); // Incrémentation du nombre de déplacement
-            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases*10); // Incrémentation du score total
+            m_s->setDeplacement(m_s->getDeplacement()+nb_cases);    // Incrémentation du nombre de déplacement
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases*10);   // Incrémentation du score total
 
-            i = 1;                                              // Initialisation de i à 1
+            i = 1;                                                  // Initialisation de i à 1
 
-            while(i < nb_cases && deplacement() != -1)   // Tant que le joueur n'a pas atteint la case et que la case suivante est un chiffre
+            while(i < nb_cases && deplacement() != -1)
             {
                 delete matrice[m_p->get_y()][m_p->get_x()];         // On libére la case du joueur
                 matrice[m_p->get_y()][m_p->get_x()] = new Croix();  // Appel du constructeur de la croix pour la mettre dans la case précédente du joueur
@@ -224,15 +335,33 @@ void GameModel::move(int pos_x, int pos_y)
             perteVie();
 
 }
+/************************************************************
+/Nom: objectifAtteint                                       *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle:  Fonction qui vérifie si l'objectif n'est pas atteint*
+/       par le joueur.                                      *
+/************************************************************/
 void GameModel::objectifAtteint()
 {
     if(m_s->getDeplacement() >= m_s->getCible())
             changeLevel();
 }
+/************************************************************
+/Nom: changeLevel                                           *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle:  Fonction qui permet de changer de niveau, de        *
+/       demander si l'on veut continuer. Elle permet aussi  *
+/       d'augmenter la valeur de l'objectif et de quitter   *
+/       si voulu.                                           *
+/************************************************************/
 void GameModel::changeLevel()
 {
     int reponse;
-    m_n->setLevel(m_n->getLevel() + 1); // J'incrémente le level grâce à la surcharge
+    m_n->setLevel(m_n->getLevel() + 1); // Incrémentation du level grâce à la surcharge
     m_s->setCible(m_s->getCible() + 5);
     m_n->initBonus();
 
@@ -251,6 +380,16 @@ void GameModel::changeLevel()
     else
         setEndGame(false); // Sinon on sort du jeu
 }
+/************************************************************
+/Nom: deplacement                                           *
+/************************************************************
+/Type: int                                                  *
+/************************************************************
+/Rôle:  Renvoie la valeur de la case où va aller le joueur  *
+/       au prochain déplacement. Renvoie un integer positif *
+/       et négatif si la case suivante est occupée par une  *
+/       bombe où n'est pas contenue dans la matrice.        *
+/************************************************************/
 int GameModel::deplacement(){
 
     string obj;
@@ -287,7 +426,15 @@ int GameModel::deplacement(){
     else
         return -1;
 }
-
+/************************************************************
+/Nom: randomBonus                                           *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle:  Fonction qui produit un chiffre aléatoire entre     *
+/       1 et 3, et affecte un type de bonus en fonction du  *
+/       chiffre tiré.                                       *
+/************************************************************/
 void GameModel::randomBonus()
 {
     int x = rand()%(3);
@@ -307,32 +454,71 @@ void GameModel::randomBonus()
             break;
     }
 }
-
-
-// Getters //
+/************************************************************
+/Nom: getPlayer                                             *
+/************************************************************
+/Type: const Player&  (getter)                              *
+/************************************************************
+/Rôle:  Fonction qui retourne un pointeur sur le joueur     *
+/************************************************************/
 const Player& GameModel::getPlayer() const
 {
     return *m_p;
 }
-
+/************************************************************
+/Nom: getScore                                              *
+/************************************************************
+/Type: const Score&  (getter)                               *
+/************************************************************
+/Rôle:  Fonction qui retourne un pointeur sur le score      *
+/************************************************************/
 const Score& GameModel::getScore() const
 {
     return *m_s;
 }
-
+/************************************************************
+/Nom: getLvl                                                *
+/************************************************************
+/Type: const Lvl&  (getter)                                 *
+/************************************************************
+/Rôle:  Fonction qui retourne un pointeur sur le level      *
+/************************************************************/
 const Lvl& GameModel::getLvl() const
 {
     return *m_n;
 }
+/************************************************************
+/Nom: getMatrice                                            *
+/************************************************************
+/Type: Case***  (getter)                                    *
+/************************************************************
+/Rôle:  Fonction qui retourne la matrice                    *
+/************************************************************/
 Case*** GameModel::getMatrice() const{
 
     return matrice;
 }
+/************************************************************
+/Nom: setMatrice                                            *
+/************************************************************
+/Type: void (setter)                                        *
+/************************************************************
+/Paramètres: matriceBis de type Case***                     *
+*************************************************************
+/Rôle:  Fonction qui retourne un pointeur sur le level      *
+/************************************************************/
 void GameModel::setMatrice(Case*** matriceBis)
 {
     matrice = matriceBis;
 }
-
+/************************************************************
+/Nom: genereMatrice                                         *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle:  Fonction qui génère une nouvelle matrice et         *
+/       affecte des nouvelles cases à la matrice principale *
+/************************************************************/
 void GameModel::genereMatrice(){
 
     for (int i=0; i < 18; i++){

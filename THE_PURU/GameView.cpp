@@ -7,17 +7,44 @@
 #include <string>
 using namespace std;
 
+/************************************************************
+/Nom: GameView                                              *
+/************************************************************
+/Type: Constructeur                                         *
+/***********************************************************/
 GameView::GameView(){
 
 }
+/************************************************************
+/Nom: ~GameView                                             *
+/************************************************************
+/Type: Desstructeur                                         *
+/***********************************************************/
 GameView::~GameView()
 {
 
 }
+/************************************************************
+/Nom: setModel                                              *
+/************************************************************
+/Type: Constructeur                                         *
+/************************************************************
+/Paramètres: model de type GameModel*                       *
+*************************************************************
+/Rôle: Affecte un model à un autre model                    *
+/***********************************************************/
 void GameView::setModel(GameModel *model)
 {
     m_model = model;
 }
+/************************************************************
+/Nom: affiche                                               *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle: Fonction qui affiche la matrice à l'écran et         *
+/      l'affichage des scores                               *
+/***********************************************************/
 void GameView::affiche() const
 {
     Case ***matrice = m_model->getMatrice();
@@ -51,7 +78,16 @@ void GameView::affiche() const
 
     cout <<  m_model->getScore().toString() << m_model->getLvl().toString() << "\t\t\t\t" << m_model->getPlayer().toString() << endl;
 }
-
+/************************************************************
+/Nom: answer_move                                           *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Paramètres: model de type GameModel*                       *
+*************************************************************
+/Rôle: Demande la direction dans laquelle l'utilisateur veut*
+/      aller et redemande tant que l'entrée n'ets pas valide*
+/***********************************************************/
 void GameView::answer_move(GameModel *model) {
     string answer;
     do{
@@ -61,6 +97,13 @@ void GameView::answer_move(GameModel *model) {
     }while(!model->check_answer(answer));
     model->set_answer_move(answer);
 }
+/************************************************************
+/Nom: presentation                                          *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle: Affiche l'en tête de début de jeu                    *
+/***********************************************************/
 void GameView::presentation() const
 {
     cout <<"  ___   _     _   ___   _     _       ___   _     _   ___   _     _      ___    _    ____      ____     _____   ___"                           << endl;
@@ -76,12 +119,26 @@ void GameView::presentation() const
     cout << "Voulez-vous jouer ou quitter ? \n" << endl;
     cout  << "Jouer: 0" << "\tQuitter: 1 " << "\tMeilleurScores: 2" << endl;
 }
+/************************************************************
+/Nom: rejouer                                               *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle: Affiche la question                                  *
+/***********************************************************/
 void GameView::rejouer() const
 {
     cout << "Vous avez perdu ou décider d'abandonner" << endl;
     cout << " Voulez rejouer ? " << endl;
     cout << " Quitter: 1 " << "\t" << "Rejouer: 0" << endl;
 }
+/************************************************************
+/Nom: affichageScore                                        *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle: Affiche les scores(ouverture et fermeture de fichier)*
+/***********************************************************/
 void GameView::affichageScore() const
 {
     fstream f;
@@ -101,6 +158,13 @@ void GameView::affichageScore() const
 
     f.close(); // fermeture du fichier
 }
+/************************************************************
+/Nom: retourMenu                                            *
+/************************************************************
+/Type: void                                                 *
+/************************************************************
+/Rôle: Affiche une question et un choix menu                *
+/***********************************************************/
 void GameView::retourMenu() const
 {
     cout << "\n\nVoulez-vous quitter ou jouer ?" << endl;
