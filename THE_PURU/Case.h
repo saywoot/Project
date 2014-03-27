@@ -14,16 +14,15 @@
 #include "Position.h"
 
 class Case : public Position{ // Case hérite de Position puisque toutes cases (Player, Bomb ou case avec un chiffre à une position dans la matrice
-    
+
 protected:
     std::string m_obj;
-    
+
 public:
     Case();
     void add_o(std::string o);
-    std::string getObj() const;  // retourne l'objet 
+    std::string getObj() const;  // retourne l'objet
     std::string toString() const;
-    void random_add();
 };
 
 std::ostream &operator<<(std::ostream &out, const Case &autre);

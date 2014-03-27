@@ -48,11 +48,12 @@ string Score::toString() const
 void Score::tabScore()
 {
     string reponse;
+    cout << "\n Vous n'avez plus de vies. Fin de Jeu." << endl;
     cout << "\nVeuillez rentrez votre nom" << endl;
     cin >> reponse ;
     cout << endl;
     fstream f;
-    f.open( "/Users/Etienne/Project/THE_PURU/scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
+    f.open( "scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
     if( f.fail() )
     {// Si probleme afficher une erreur
         cerr << "ouverture en lecture impossible" << endl;

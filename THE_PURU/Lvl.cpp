@@ -27,7 +27,7 @@ void Lvl::setLevel(int level)
 string Lvl::toString() const
 {
     std::ostringstream out;
-    out<< "Score Bonus :" << m_score_bonus << "\t\t\t\t\tBonus Temps: " << m_bonus_temps << "\t\t\t\tBonus Vie: " << m_bonus_vie << "\nLevel : " << m_lvl  ;
+    out<< "Score Bonus :" << m_score_bonus << "\t\t\t\tBonus Temps: " << m_bonus_temps << "\t\t\t\tBonus Vie: " << m_bonus_vie << "\nLevel : " << m_lvl  ;
 
 
     std::string s = out.str();

@@ -49,7 +49,7 @@ void GameView::affiche() const
     cout << "|" <<endl ;
     cout << endl;
 
-    cout <<  m_model->getScore().toString() << m_model->getLvl().toString() << "\t\t\t\t\t\t" << m_model->getPlayer().toString() << endl;
+    cout <<  m_model->getScore().toString() << m_model->getLvl().toString() << "\t\t\t\t" << m_model->getPlayer().toString() << endl;
 }
 
 void GameView::answer_move(GameModel *model) {
@@ -63,18 +63,18 @@ void GameView::answer_move(GameModel *model) {
 }
 void GameView::presentation() const
 {
-    cout <<"  ___   _     _   ___   _     _       ___   _     _   ___   _     _      ___    _    ____      ____"                           << endl;
-    cout <<" /   \\ | |   | | /   \\ | |   | |     /   \\ | |   | | /   \\ | |   | |    |   \\  | |  / __ \\    / __ \\"                   << endl;
-    cout <<"|  _  \\| |   | ||  _  \\| |   | |    |  _  \\| |   | ||  _  \\| |   | |    | |\\ \\ | | / /  \\_\\  / /  \\_\\"               << endl;
-    cout <<"| |_| /| |   | || |_| /| |   | | __ | |_| /| |   | || |_| /| |   | | __ | | | || || |    __ | |    __"                         << endl;
-    cout <<"|  __/ | |   | ||  __/ | |   | ||__||  __/ | |   | ||  __/ | |   | ||__|| | | || || |   | _|| |   | _|"                        << endl;
-    cout <<"| |    | |   | ||   \\  | |   | |    | |    | |   | ||   \\  | |   | |    | | | || || |   | | | |   | |"                       << endl;
-    cout <<"| |    | \\___/ || |\\ \\ | \\___/ |    | |    | \\___/ || |\\ \\ | \\___/ |    | |/ / | | \\ \\__/ |  \\ \\__/ |"             << endl;
-    cout <<"|_|     \\_____/ |_| \\_\\ \\_____/     |_|     \\_____/ |_| \\_\\ \\_____/     |___/  |_|  \\____/    \\____/"                << endl;
+    cout <<"  ___   _     _   ___   _     _       ___   _     _   ___   _     _      ___    _    ____      ____     _____   ___"                           << endl;
+    cout <<" /   \\ | |   | | /   \\ | |   | |     /   \\ | |   | | /   \\ | |   | |    |   \\  | |  / __ \\    / __ \\   |  ___| /   \\ "                   << endl;
+    cout <<"|  _  \\| |   | ||  _  \\| |   | |    |  _  \\| |   | ||  _  \\| |   | |    | |\\ \\ | | / /  \\_\\  / /  \\_\\  | |    |  _  \\"               << endl;
+    cout <<"| |_| /| |   | || |_| /| |   | | __ | |_| /| |   | || |_| /| |   | | __ | | | || || |    __ | |    __  | |__  | |_| / "                         << endl;
+    cout <<"|  __/ | |   | ||  __/ | |   | ||__||  __/ | |   | ||  __/ | |   | ||__|| | | || || |   | _|| |   | _| |  __| |  __/     "                        << endl;
+    cout <<"| |    | |   | ||   \\  | |   | |    | |    | |   | ||   \\  | |   | |    | | | || || |   | | | |   | |  | |    |   \\"                       << endl;
+    cout <<"| |    | \\___/ || |\\ \\ | \\___/ |    | |    | \\___/ || |\\ \\ | \\___/ |    | |/ / | | \\ \\__/ |  \\ \\__/ |  | |___ | |\\ \\"             << endl;
+    cout <<"|_|     \\_____/ |_| \\_\\ \\_____/     |_|     \\_____/ |_| \\_\\ \\_____/     |___/  |_|  \\____/    \\____/   |_____||_| \\_\\"                << endl;
     cout << endl;
     cout << endl;
     cout << "Voulez-vous jouer ou quitter ? \n" << endl;
-    cout  << "Jouer: 0" << "\tQuitter: 1 " << "MeilleurScores: 2" << endl;
+    cout  << "Jouer: 0" << "\tQuitter: 1 " << "\tMeilleurScores: 2" << endl;
 }
 void GameView::rejouer() const
 {
@@ -85,7 +85,7 @@ void GameView::rejouer() const
 void GameView::affichageScore() const
 {
     fstream f;
-    f.open("/Users/Etienne/Project/THE_PURU/scores.txt", ios::in); // ouverture du fichier en ecriture ficNb
+    f.open("scores.txt", ios::in); // ouverture du fichier en ecriture ficNb
     if( f.fail() )
     {// Si probleme afficher une erreur
         cerr << "ouverture en lecture impossible" << endl;
@@ -98,7 +98,7 @@ void GameView::affichageScore() const
         f >> phrase;
     }
     cout << endl;
-    
+
     f.close(); // fermeture du fichier
 }
 void GameView::retourMenu() const

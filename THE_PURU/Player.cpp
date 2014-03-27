@@ -12,23 +12,6 @@ Player::Player(): Case(){
     m_vie =3;
     set_pos(rand()%(WIDTH_GAME), rand()%(HEIGHT_GAME));
 }
-
-Player::Player(int x, int y, string o): Case(){
-    m_obj=o;
-
-    while(x>WIDTH_GAME || x<0 || y<0 || y>HEIGHT_GAME){
-        if (x>WIDTH_GAME || x<0) {
-            cout << "x : ";
-            cin >> x;
-        }
-        if (y>HEIGHT_GAME || y<0){
-            cout << "y : ";
-            cin >> y;
-        }
-    }
-    set_pos(x, y);
-}
-
 void Player::set_position(int x, int y){
     while(x>WIDTH_GAME || x<0 || y<0 || y>HEIGHT_GAME){
         if (x>WIDTH_GAME || x<0) {

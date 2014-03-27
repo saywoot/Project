@@ -17,7 +17,6 @@
 class Player : public Case{
 public:
     Player();
-    Player(int x, int y, std::string o);
     std::string toString() const;
     Position get_position();
     void setVie(int nb);

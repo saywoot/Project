@@ -1,8 +1,9 @@
 #include "GameView.h"
 #include "GameModel.h"
-#include <cstdlib>
 #include "Const.h"
+#include <cstdlib>
 #include <stdio.h>
+#include <sstream>
 
 using namespace std;
 
@@ -13,12 +14,11 @@ int main()
     GameView *view = new GameView();
     view->setModel(model);
     view->presentation();
-
-    int reponse;
     int message;
+    int reponse;
     cin >> reponse;
     cout << endl;
-    
+
     while(true){
     switch(reponse)
     {
@@ -28,6 +28,7 @@ int main()
             cin >> message;
             while(message == 0)
             {
+
                 if(model->getEndGame() == true)
                 {
                     view->affiche();
@@ -36,7 +37,9 @@ int main()
                 }
                 else
                 {
-                    view -> affichageScore(); // Si la partie est finie, on affiche les meilleurs scores.
+                    if(model->get_answer_move() != "1") // On affiche les scores seulement si on a pas abandonné
+                        view -> affichageScore(); // Si la partie est finie, on affiche les meilleurs scores.
+
                     view->rejouer();
                     cin >> message;
                     model->setEndGame(true);
@@ -46,21 +49,19 @@ int main()
             }
             if(message == 1)
                 return EXIT_SUCCESS;
-            
+
             break;
         case 1:
             return EXIT_SUCCESS;
             break;
         case 2:
-            view->affichageScore();
+            view->affichageScore(); // affichage du score au menu si demandé
             view->retourMenu();
             cin >> reponse;
             break;
 
         }
     }
-    
-    
 
     delete view;
     delete model;

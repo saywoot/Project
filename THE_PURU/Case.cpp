@@ -14,10 +14,6 @@ Case::Case(){
 void Case::add_o(string o){
     m_obj=o;
 }
-void Case::random_add(){
-    srand((unsigned) time(NULL));
-    m_obj=ELEM[rand()%(NB_ELEM)];
-}
 // retourne l'objet (utiliser pour la matrice)
 string Case::getObj() const
 {

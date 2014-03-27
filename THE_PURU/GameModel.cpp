@@ -157,35 +157,48 @@ void GameModel::perteVie()
     int reponse;
     m_p->setVie(m_p->getVie() - 1); // On décremente la vie
     m_s->setDeplacement(0); // On remet le score déplacement à O
-    
-    
+
+
     if(m_p->getVie() > 0){
         cout << " \nVous venez de perdre une vie !" << endl;
         cout << " Voulez-vous continuer ?" << endl;
         cout << " Continuer: 0 \t\t\t Quitter: 1" << endl;
         cin >> reponse;
-    
+
         if(reponse == 0){
             genereMatrice();
             endGame();
         }
-        else
+        else{
+            set_answer_move("1");
             setEndGame(false);
+        }
     }
     else
         endGame();
 }
 void GameModel::move(int pos_x, int pos_y)
 {
+    int x = m_p->get_x();
+    int y = m_p->get_y();
      delete matrice[m_p->get_y()][m_p->get_x()];
      matrice[m_p->get_y()][m_p->get_x()] = new Croix();
      m_p->deplacement(pos_x,pos_y);
      nb_cases = deplacement();
 
-        if(nb_cases != -1 ){                                       // Mouvement vers le Nord du joueur
+	  string obj = matrice[m_p->get_y()][m_p->get_x()]->getObj(); // Test si la case suivante, la premiere, est une bombe
+        if(obj == "@@@"){
+            nb_cases = 0;
+        }
+
+		 if(nb_cases == 0) // Si c'est une bombe on recule
+        {
+            m_p->set_pos(x, y);
+        }
+        else if(nb_cases != -1 ){                                       // Mouvement vers le Nord du joueur
 
             m_s->setDeplacement(m_s->getDeplacement()+nb_cases); // Incrémentation du nombre de déplacement
-            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases); // Incrémentation du score total
+            m_s->setScoreTotal(m_s->getScoreTotal()+nb_cases*10); // Incrémentation du score total
 
             i = 1;                                              // Initialisation de i à 1
 
@@ -202,13 +215,14 @@ void GameModel::move(int pos_x, int pos_y)
                 objectifAtteint();
             }
             else{
+                m_s->setScoreTotal(m_s->getScoreTotal()-nb_cases*10);
                 perteVie();
             }
         }
-    
+
         else
             perteVie();
-        
+
 }
 void GameModel::objectifAtteint()
 {
@@ -221,7 +235,7 @@ void GameModel::changeLevel()
     m_n->setLevel(m_n->getLevel() + 1); // J'incrémente le level grâce à la surcharge
     m_s->setCible(m_s->getCible() + 5);
     m_n->initBonus();
-    
+
     if(m_n->getLevel()%2 == 0){
         m_n->setBomb(m_n->getNb() +1);
         m_n->setBonus(m_n->getBonus() +1);
@@ -238,7 +252,7 @@ void GameModel::changeLevel()
         setEndGame(false); // Sinon on sort du jeu
 }
 int GameModel::deplacement(){
-    
+
     string obj;
     if(m_p->get_x() >= 0 && m_p->get_x() < WIDTH_GAME && m_p->get_y() >= 0 && m_p->get_y() < HEIGHT_GAME){
          obj = matrice[m_p->get_y()][m_p->get_x()]->getObj();

@@ -8,12 +8,9 @@
 
 class BonusCase : public Case{
 
-private:
-    // Position m_p;
 public:
     BonusCase();
 
-    void set_position(int x, int y);
 };
 
 #endif // BONUSCASE_H_INCLUDED

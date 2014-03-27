@@ -16,14 +16,9 @@
 #include "Case.h"
 
 class Bomb : public Case{
-private:
-   // Position m_p;
-public:
-    Bomb();
-    Bomb(int x, int y, std::string o);
 
-    void set_position(int x, int y);
-    bool operator==(const Bomb& autre);
+public:
+    Bomb();                               // Constructeur
 };
 
 #endif /* defined(__THE_PURU__Bomb__) */
