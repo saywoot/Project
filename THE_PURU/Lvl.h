@@ -10,8 +10,6 @@
 #define __THE_PURU__Lvl__
 
 #include <iostream>
-#include "Bomb.h"
-#include "Case.h"
 
 class Lvl {
 private:
@@ -21,11 +19,8 @@ private:
     int m_bonus_temps;
     int m_bonus_vie;
     int m_score_bonus;
-    Bomb b;
-    Case *matrix[18][18];
 public:
     Lvl();
-    //void set_lvl(int lvl, Case matrix);
     std::string toString() const;
     int getNb() const;
     int get_score_bonus() const;
