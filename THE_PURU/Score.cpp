@@ -37,14 +37,6 @@ int Score::getCible() const
 {
     return m_cible;
 }
-string Score::toString() const
-{
-    std::ostringstream out;
-    out<< "Le score déplacement: " << nb_deplacement << "\t\t\tLe score cible: " << m_cible << "\t\t\tLe score total: " << nb_score_total << endl;
-
-    std::string s = out.str();
-    return s;
-}
 void Score::tabScore()
 {
     string reponse;

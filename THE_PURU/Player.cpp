@@ -38,11 +38,4 @@ void Player::deplacement(int x, int y)
 {
     this->set_pos(this->get_x() + x, this->get_y() + y);
 }
-string Player::toString() const
-{
-    std::ostringstream out;
-    out<< "Vie du joueur: " << m_vie;
 
-    std::string s = out.str();
-    return s;
-}

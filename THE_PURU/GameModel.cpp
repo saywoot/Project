@@ -89,7 +89,6 @@ GameModel::~GameModel()
         delete m_p;
     if(m_n != NULL)
         delete m_n;
-
 }
 /*************************************************************
  * Nom: direction                                            *
@@ -260,16 +259,15 @@ void GameModel::perteVie()
 
 
     if(m_p->getVie() > 0){
-        cout << " \nVous venez de perdre une vie !" << endl;
-        cout << " Voulez-vous continuer ?" << endl;
-        cout << " Continuer: 0 \t\t\t Quitter: 1" << endl;
+        GameView::perteVie();
         cin >> reponse;
 
         if(reponse == 0){
             genereMatrice();
             endGame();
         }
-        else{
+        else
+        {
             set_answer_move("1");
             setEndGame(false);
         }
@@ -370,15 +368,17 @@ void GameModel::changeLevel()
         m_n->setBonus(m_n->getBonus() +1);
     }
     m_s->setDeplacement(0); // On remet le score déplacement à O
-    cout << "\nVous avez changé de niveau " << endl;
-    cout << "Continuer :0 \t\t\t Quitter: 1" << endl;
+    
+    GameView::changementLevel();
     cin >> reponse;
     if(reponse == 0){
-        cout << " Vous êtes au niveau " << m_n->getLevel() << endl;
         genereMatrice(); // Sinon on joue
     }
     else
+    {
+        set_answer_move("1");
         setEndGame(false); // Sinon on sort du jeu
+    }
 }
 /************************************************************
  * Nom: deplacement                                         *
@@ -554,8 +554,39 @@ void GameModel::genereMatrice(){
 
         setMatrice(matrice);
 }
-
-
+char GameModel::saisieChoix()
+{
+    char choix = ' ';
+    do {
+        cin >> choix;
+    } while(!( choix >='0' && choix <= '2'));
+    
+    int c = atoi(&choix);
+    return c;
+}
+char GameModel::saisieMenu()
+{
+    char choix = ' ';
+    do {
+        cin >> choix;
+    } while(!( choix >='0' && choix <= '1'));
+    
+    int c = atoi(&choix);
+    return c;
+}
+int GameModel::rejouerPartie()
+{
+    if(get_answer_move() != "1"){ // On affiche les scores seulement si on a pas abandonné
+        GameView::affichageScore();
+    }
+    GameView::rejouer();
+    int message = saisieMenu();
+    setEndGame(true);
+    initLevel();
+    genereMatrice();
+    
+    return message;
+}
 
 
 

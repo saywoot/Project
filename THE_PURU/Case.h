@@ -13,7 +13,7 @@
 #include <string>
 #include "Position.h"
 
-class Case : public Position{ // Case hérite de Position puisque toutes cases (Player, Bomb ou case avec un chiffre à une position dans la matrice
+class Case : public Position{ 
 
 protected:
     std::string m_obj;
@@ -21,10 +21,7 @@ protected:
 public:
     Case();
     void add_o(std::string o);
-    std::string getObj() const;  // retourne l'objet
-    std::string toString() const;
+    virtual std::string getObj() const;  // retourne l'objet
+
 };
-
-std::ostream &operator<<(std::ostream &out, const Case &autre);
-
 #endif /* defined(__THE_PURU__Case__) */

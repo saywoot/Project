@@ -37,6 +37,28 @@ void GameView::setModel(GameModel *model)
 {
     m_model = model;
 }
+string GameView::afficheBonus() const
+{
+    ostringstream out;
+    out << "Score Bonus :" << m_model->getLvl().get_score_bonus() << "\t\t\t\tBonus Temps: " << m_model->getLvl().get_b_temps() << "\t\t\t\tBonus Vie: " << m_model->getLvl().get_b_vie()  << "\nLevel : " << m_model->getLvl().getLevel();
+    string s = out.str();
+    return s;
+}
+string GameView::afficheScore() const
+{
+    ostringstream out;
+     out<< "Le score déplacement: " << m_model->getScore().getDeplacement() << "\t\t\tLe score cible: " << m_model->getScore().getCible() << "\t\t\tLe score total: " << m_model->getScore().getScoreTotal() << endl;
+    string s = out.str();
+    return s;
+}
+string GameView::viePlayer() const
+{
+    ostringstream out;
+    out<< "\tVie du joueur: " << m_model->getPlayer().getVie();
+    
+    string s= out.str();
+    return s;
+}
 /************************************************************
  * Nom: affiche                                             *
  ************************************************************
@@ -48,7 +70,7 @@ void GameView::setModel(GameModel *model)
 void GameView::affiche() const
 {
     Case ***matrice = m_model->getMatrice();
-
+    
     /* Affichage */
     for(int i=0; i<18; i++){
         cout << ("\t\t\t\t|---");
@@ -56,17 +78,14 @@ void GameView::affiche() const
             cout << "|---";
         cout <<"|" << endl << "\t\t\t\t";
         for(int j=0; j<18; j++){
-            if(m_model->getPlayer().get_x() == j && m_model->getPlayer().get_y() == i)
-            {
+             if(dynamic_cast<Bomb*>(matrice[i][j]))
+                cout << "|" << "@@@";
+            else if(m_model->getPlayer().get_x() == j && m_model->getPlayer().get_y() == i)
                 cout << "|$$$";
-            }
-            else if(matrice[i][j]->getObj() == "$$$" || matrice[i][j]->getObj() == "@@@")
-                cout << "|" << matrice[i][j]->getObj();
-            else if(matrice[i][j]->getObj() == "-1-" || matrice[i][j]->getObj() == "-2-" || matrice[i][j]->getObj() == "-3-" ||
-                    matrice[i][j]->getObj() == "-4-" || matrice[i][j]->getObj() == "-5-" || matrice[i][j]->getObj() == "-6-")
+            else if(dynamic_cast<BonusCase*>(matrice[i][j]))
                 cout << "|" << matrice[i][j]->getObj();
             else
-                cout << "| " << matrice[i][j]->getObj() <<" ";
+                cout << "| " << matrice[i][j]->getObj() << " ";
         }
         cout << "|" <<endl ;
     }
@@ -75,8 +94,8 @@ void GameView::affiche() const
         cout << "|---";
     cout << "|" <<endl ;
     cout << endl;
-
-    cout <<  m_model->getScore().toString() << m_model->getLvl().toString() << "\t\t\t\t" << m_model->getPlayer().toString() << endl;
+    
+    cout <<  afficheScore() << afficheBonus() << "\t\t\t\t" << viePlayer() << endl;
 }
 /**************************************************************
  * Nom: answer_move                                           *
@@ -126,7 +145,7 @@ void GameView::presentation() const
  ************************************************************
  * Rôle: Affiche la question                                *
  ************************************************************/
-void GameView::rejouer() const
+ void GameView::rejouer()
 {
     cout << "Vous avez perdu ou décider d'abandonner" << endl;
     cout << " Voulez rejouer ? " << endl;
@@ -139,7 +158,7 @@ void GameView::rejouer() const
  **************************************************************
  * Rôle: Affiche les scores(ouverture et fermeture de fichier)*
  **************************************************************/
-void GameView::affichageScore() const
+void GameView::affichageScore()
 {
     fstream f;
     f.open("scores.txt", ios::in); // ouverture du fichier en ecriture ficNb
@@ -170,6 +189,38 @@ void GameView::retourMenu() const
     cout << "\n\nVoulez-vous quitter ou jouer ?" << endl;
     cout  << "Jouer: 0" << "\tQuitter: 1 " << endl;
 }
+
+void GameView::tabScore() const
+{
+    string reponse;
+    cout << "\n Vous n'avez plus de vies. Fin de Jeu." << endl;
+    cout << "\nVeuillez rentrez votre nom" << endl;
+    cin >> reponse ;
+    cout << endl;
+    fstream f;
+    f.open( "scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
+    if( f.fail() )
+    {// Si probleme afficher une erreur
+        cerr << "ouverture en lecture impossible" << endl;
+        f.close();
+    }
+    
+    f << reponse << ':' << m_model->getScore().getScoreTotal() << endl;
+    
+    f.close(); // fermeture du fichier
+}
+void GameView::perteVie()
+{
+    cout << " \nVous venez de perdre une vie !" << endl;
+    cout << " Voulez-vous continuer ?" << endl;
+    cout << " Continuer: 0 \t\t\t Quitter: 1" << endl;
+}
+void GameView::changementLevel()
+{
+    cout << "\nVous avez changé de niveau " << endl;
+    cout << "Continuer :0 \t\t\t Quitter: 1" << endl;
+}
+
 
 
 

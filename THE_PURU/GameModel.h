@@ -21,8 +21,6 @@
 #include "Croix.h"
 #include "Score.h"
 
-
-
 class GameModel{
 private:
     Case*** matrice; // Matrice de pointeurs
@@ -64,6 +62,10 @@ public:
 
     Case*** getMatrice() const;
     void genereMatrice();
+    
+    int rejouerPartie();
+    char saisieChoix();
+    char saisieMenu();
 
 };
 

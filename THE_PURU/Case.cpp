@@ -19,20 +19,4 @@ string Case::getObj() const
 {
     return m_obj;
 }
-// Fonction permettant l'affichage de l'objet
-// retourne un string
-string Case::toString() const
-{
-    ostringstream out;
-    out<< m_obj;
-
-    string s = out.str();
-    return s;
-}
-// Surcharge de l'opérateur <<
-ostream &operator<<(ostream &out, const Case &autre)
-{
-    out << autre.toString();
-    return out;
-}
 

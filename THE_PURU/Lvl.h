@@ -21,7 +21,6 @@ private:
     int m_score_bonus;
 public:
     Lvl();
-    std::string toString() const;
     int getNb() const;
     int get_score_bonus() const;
     int get_b_temps() const;

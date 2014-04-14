@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -16,7 +17,7 @@ int main()
     view->presentation();
     int message;
     int reponse;
-    cin >> reponse;
+    reponse = model->saisieChoix();
     cout << endl;
 
     while(true){
@@ -25,10 +26,9 @@ int main()
         case 0:
             cout << "Voulez-vous jouer ou abandonner ?" << endl;
             cout << "Jouer: 0 \t Abandonner: 1" << endl;
-            cin >> message;
+            message = model->saisieChoix();
             while(message == 0)
             {
-
                 if(model->getEndGame() == true)
                 {
                     view->affiche();
@@ -37,19 +37,11 @@ int main()
                 }
                 else
                 {
-                    if(model->get_answer_move() != "1") // On affiche les scores seulement si on a pas abandonné
-                        view -> affichageScore(); // Si la partie est finie, on affiche les meilleurs scores.
-
-                    view->rejouer();
-                    cin >> message;
-                    model->setEndGame(true);
-                    model->initLevel();
-                    model->genereMatrice(); // VIENS D'ETRE AJOUTER
+                    message = model->rejouerPartie();
                 }
             }
             if(message == 1)
                 return EXIT_SUCCESS;
-
             break;
         case 1:
             return EXIT_SUCCESS;

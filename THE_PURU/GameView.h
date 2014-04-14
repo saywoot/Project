@@ -23,9 +23,15 @@ public:
     void affiche() const;
     void presentation() const;
     void answer_move(GameModel *model);
-    void rejouer() const;
-    void affichageScore() const;
+    static void rejouer();
+    static void affichageScore();
     void retourMenu() const;
+    std::string afficheBonus() const;
+    std::string afficheScore() const;
+    std::string viePlayer() const;
+    void tabScore() const;
+    static void perteVie();
+    static void changementLevel();
 
 private:
     GameModel *m_model;
