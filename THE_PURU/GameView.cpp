@@ -54,7 +54,7 @@ string GameView::afficheScore() const
 string GameView::viePlayer() const
 {
     ostringstream out;
-    out<< "\tVie du joueur: " << m_model->getPlayer().getVie();
+    out<< "\t\tVie du joueur: " << m_model->getPlayer().getVie();
     
     string s= out.str();
     return s;
@@ -190,25 +190,6 @@ void GameView::retourMenu() const
     cout  << "Jouer: 0" << "\tQuitter: 1 " << endl;
 }
 
-void GameView::tabScore() const
-{
-    string reponse;
-    cout << "\n Vous n'avez plus de vies. Fin de Jeu." << endl;
-    cout << "\nVeuillez rentrez votre nom" << endl;
-    cin >> reponse ;
-    cout << endl;
-    fstream f;
-    f.open( "scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
-    if( f.fail() )
-    {// Si probleme afficher une erreur
-        cerr << "ouverture en lecture impossible" << endl;
-        f.close();
-    }
-    
-    f << reponse << ':' << m_model->getScore().getScoreTotal() << endl;
-    
-    f.close(); // fermeture du fichier
-}
 void GameView::perteVie()
 {
     cout << " \nVous venez de perdre une vie !" << endl;
@@ -220,7 +201,11 @@ void GameView::changementLevel()
     cout << "\nVous avez changé de niveau " << endl;
     cout << "Continuer :0 \t\t\t Quitter: 1" << endl;
 }
-
+void GameView::plusDeVie()
+{
+    cout << "\n Vous n'avez plus de vies. Fin de Jeu." << endl;
+    cout << "\nVeuillez rentrez votre nom" << endl;
+}
 
 
 

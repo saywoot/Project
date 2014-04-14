@@ -20,8 +20,6 @@ public:
     int getDeplacement() const;
     int getScoreTotal() const;
     int getCible() const;
-    std::string toString() const;
-    void tabScore();
 
 private:
     int nb_deplacement;

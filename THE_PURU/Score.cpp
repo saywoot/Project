@@ -37,25 +37,7 @@ int Score::getCible() const
 {
     return m_cible;
 }
-void Score::tabScore()
-{
-    string reponse;
-    cout << "\n Vous n'avez plus de vies. Fin de Jeu." << endl;
-    cout << "\nVeuillez rentrez votre nom" << endl;
-    cin >> reponse ;
-    cout << endl;
-    fstream f;
-    f.open( "scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
-    if( f.fail() )
-    {// Si probleme afficher une erreur
-        cerr << "ouverture en lecture impossible" << endl;
-        f.close();
-    }
 
-    f << reponse << ':' << getScoreTotal() << endl;
-
-    f.close(); // fermeture du fichier
-}
 
 
 

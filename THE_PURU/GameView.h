@@ -2,7 +2,7 @@
 //  GameView.h
 //  THE_PURU
 //
-//  Created by sayw00t on 24/02/2014.
+//  Created by Zwitterion on 24/02/2014.
 //  Copyright (c) 2014 sayw00t. All rights reserved.
 //
 
@@ -29,9 +29,9 @@ public:
     std::string afficheBonus() const;
     std::string afficheScore() const;
     std::string viePlayer() const;
-    void tabScore() const;
     static void perteVie();
     static void changementLevel();
+    static void plusDeVie();
 
 private:
     GameModel *m_model;

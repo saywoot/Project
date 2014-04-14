@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <sstream>
 #include <cstdlib>
 #include <vector>
@@ -182,6 +183,25 @@ bool GameModel::check_answer(std::string a){
     else
         return false;
 }
+
+void GameModel::tabScore()
+{
+    string reponse;
+    GameView::plusDeVie();
+    cin >> reponse ;
+    cout << endl;
+    fstream f;
+    f.open( "scores.txt", ios::out | ios::app ); // ouverture du fichier en ecriture ficNb
+    if( f.fail() )
+    {// Si probleme afficher une erreur
+        cerr << "ouverture en lecture impossible" << endl;
+        f.close();
+    }
+    
+    f << reponse << ':' << getScore().getScoreTotal() << endl;
+    
+    f.close(); // fermeture du fichier
+}
 /*************************************************************
  * Nom: endGame                                              *
  *************************************************************
@@ -195,7 +215,7 @@ bool GameModel::endGame()
 {
     if(m_p->getVie() <= 0){
         fin = false;
-        m_s->tabScore();
+        tabScore();
         return fin;
     }
     return fin;

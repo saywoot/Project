@@ -17,7 +17,6 @@
 class Player : public Case{
 public:
     Player();
-    std::string toString() const;
     Position get_position();
     void setVie(int nb);
     void deplacement(int x, int y);

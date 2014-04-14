@@ -24,8 +24,7 @@ int main()
     switch(reponse)
     {
         case 0:
-            cout << "Voulez-vous jouer ou abandonner ?" << endl;
-            cout << "Jouer: 0 \t Abandonner: 1" << endl;
+            view->retourMenu();
             message = model->saisieChoix();
             while(message == 0)
             {

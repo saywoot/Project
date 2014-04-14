@@ -66,6 +66,7 @@ public:
     int rejouerPartie();
     char saisieChoix();
     char saisieMenu();
+    void tabScore();
 
 };
 
