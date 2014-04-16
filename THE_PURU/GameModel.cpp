@@ -316,7 +316,7 @@ void GameModel::move(int pos_x, int pos_y)
      nb_cases = deplacement();
 
 	  string obj = matrice[m_p->get_y()][m_p->get_x()]->getObj();  // Test si la case suivante, la premiere, est une bombe
-        if(obj == "@@@"){
+        if(obj == "@@@" || obj == " "){
             nb_cases = 0;
         }
 
